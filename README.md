@@ -1,3 +1,3 @@
 # Gestão de serviços e processos
 
-## Sistema web para gestão de serviços em todos os níveis
+## Sistema web de acompanhamento de serviços e processos em todos os níveis, que contempla uma visualização através de kanban board, métricas de fluxo e fluxos por nó (onde é possível enxergar todos os serviços da organização).
