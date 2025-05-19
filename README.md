@@ -7,6 +7,7 @@
 - Database: PostgreSQL
 - Front-end: Typescript with Angular
 
+## Register / Login funcionality
 ```mermaid
 classDiagram
     class User {
