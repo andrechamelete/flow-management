@@ -23,14 +23,14 @@ public class AuthControllerTest {
 
     @Test
     public void testLogin() throws Exception {
-        String jsonRequest = "{\"email\":\"andre@email.com\", \"password\":\"123456\"}";
+        String jsonRequest = "{\"email\":\"marcelo@email.com\", \"password\":\"102030\"}";
 
         mockMvc.perform(post("/api/auth/login")
             .contentType("application/json")
             .content(jsonRequest))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.jwt").exists());
-}
+    }
 
 }
 
