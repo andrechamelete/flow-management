@@ -97,6 +97,40 @@ classDiagram
         + setPassword(String)
     }
 
+    class UserService {
+      <<interface>>
+      + User findByEmail(String)
+      + User create(User)
+    }
+
+    class UserServiceImpl {
+      - UserRepository userRepository
+      + User findByEmail(String)
+      + User create(User)
+    }
+
+    %% ========= SECURITY ========= %%
+    class UserDetailsServiceImpl {
+      - UserRepository userRepository
+      + UserDetails loadUserByUsername(String)
+    }
+
+    class JwtRequestFilter {
+      - JwtUtil jwtUtil
+      - UserDetailsServiceImpl userDetailsService
+      + doFilterInternal(HttpServletRequest, HttpServletResponse, FilterChain)
+    }
+
+    class SecurityConfig {
+      - JwtRequestFilter jwtRequestFilter
+      - UserDetailsServiceImpl userDetailsService
+      + SecurityFilterChain securityFilterChain(HttpSecurity)
+      + AuthenticationManager authenticationManager(AuthenticationConfiguration)
+      + AuthenticationProvider authenticationProvider()
+      + PasswordEncoder passwordEncoder()
+    }
+
+
 
     AuthRegisterController --> RegisterRequest
     AuthRegisterController --> AuthResponse
@@ -119,5 +153,15 @@ classDiagram
     UserDetailsImpl ..|> UserDetails
     JwtUtil --> Claims
     JwtUtil --> Function
+
+    JwtRequestFilter --> JwtUtil
+    JwtRequestFilter --> UserDetailsServiceImpl
+    SecurityConfig --> JwtRequestFilter
+    SecurityConfig --> UserDetailsServiceImpl
+    UserDetailsServiceImpl --> User
+    JwtRequestFilter --> UserDetails
+    JwtUtil --> UserDetails
+    UserServiceImpl --> User
+    UserRepository --> User
 
 ```
