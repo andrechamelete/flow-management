@@ -1,21 +1,15 @@
 package com.chamelete.flow_management.service.impl;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
 import java.util.Optional;
+import java.util.NoSuchElementException;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
-import java.util.NoSuchElementException;
-
-import org.junit.jupiter.api.extension.ExtendWith;
-
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.chamelete.flowManagement.model.User;
 import com.chamelete.flowManagement.repository.UserRepository;
@@ -43,10 +37,6 @@ public class UserServiceImplTest {
 
         assertNotNull(createdUser);
         assertEquals(email, createdUser.getEmail());
-        /* 
-        assertNotNull(createdUser);
-        assertEquals("testes@chamelete.com", createdUser.getEmail());
-        verify(userRepository).save(userToCreate);*/
     }
 
     @Test
