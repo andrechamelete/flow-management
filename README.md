@@ -6,3 +6,36 @@
 - Back-end: Java, Spring Boot, JWT
 - Database: PostgreSQL
 - Front-end: Typescript with Angular
+
+```mermaid
+classDiagram
+    class User {
+        +Long id
+        +String username
+        +String email
+        +String password
+        +LocalDateTime created_at
+        +getId(): Long
+        +setId(Long): void
+        +getUsername(): String
+        +setUsername(String): void
+        +getPassword(): String
+        +setPassword(String): void
+    }
+
+    class UserRepository {
+        <<interface>>
+        +existsByEmail(String): boolean
+        +findByEmail(String): Optional<User>
+        +findAll(): List<User>
+    }
+
+    class UserController {
+        +getAllUsers(): List<User>
+    }
+
+    UserRepository ..|> JpaRepository
+    UserController --> UserRepository
+    UserRepository --> User
+
+```
