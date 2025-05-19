@@ -1,36 +1,85 @@
 package com.chamelete.flow_management.controller;
 
-import com.chamelete.flowManagement.FlowManagementApplication;
+import com.chamelete.flowManagement.controller.AuthController;
+import com.chamelete.flowManagement.model.User;
+import com.chamelete.flowManagement.security.JwtUtil;
+import com.chamelete.flowManagement.security.UserDetailsImpl;
+import com.chamelete.flowManagement.security.dto.AuthRequest;
+import com.chamelete.flowManagement.security.dto.AuthResponse;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 
-@SpringBootTest(classes = FlowManagementApplication.class)
-@AutoConfigureMockMvc
+import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+
+import org.springframework.security.core.Authentication;
+
+
+@ExtendWith(MockitoExtension.class)
 public class AuthControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @InjectMocks
+    private AuthController authController;
+    
+    @Mock
+    private AuthenticationManager authenticationManager;
+    
+    @Mock
+    private JwtUtil jwtUtil;
+
+    @Mock
+    private Authentication authentication;
 
     @Test
-    public void testLogin() throws Exception {
-        String jsonRequest = "{\"email\":\"marcelo@email.com\", \"password\":\"102030\"}";
+    void login_withValidCredentials_shouldReturnJwt() {
 
-        mockMvc.perform(post("/api/auth/login")
-            .contentType("application/json")
-            .content(jsonRequest))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.jwt").exists());
+        AuthRequest authRequest = new AuthRequest("user@chamelete.com", "123456");
+
+        User user = new User();
+        user.setId(1L);
+        user.setEmail("user@chamelete.com");
+        user.setPassword("123456");
+
+        UserDetailsImpl userDetailsImpl = new UserDetailsImpl(user);
+
+        when(authenticationManager.authenticate(any()))
+            .thenReturn(authentication);
+
+        when(authentication.getPrincipal())
+            .thenReturn(userDetailsImpl);
+
+        when(jwtUtil.generateToken(userDetailsImpl))
+            .thenReturn("fake-jwt-token");
+
+        AuthResponse authResponse = authController.login(authRequest);
+
+        assertNotNull(authResponse);
+        assertEquals("fake-jwt-token", authResponse.getToken());
     }
 
+    @Test
+    void login_withInvalidCredentials_shouldThrowRuntimeException() {
+        AuthRequest authRequest = new AuthRequest("invalid@chamelete.com", "wrong");
+
+        when(authenticationManager.authenticate(any())).thenThrow(new BadCredentialsException("Bad credentials"));
+
+        RuntimeException thrown = assertThrows(RuntimeException.class, () -> {
+            authController.login(authRequest);
+        });
+        
+        assertEquals("Invalid credentials", thrown.getMessage());
+    }
+        
+    
 }
 
