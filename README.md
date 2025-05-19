@@ -58,9 +58,16 @@ classDiagram
     }
 
     class JwtUtil {
-        +generateToken(UserDetails): String
-        +extractUsername(String): String
-        +validateToken(String, UserDetails): boolean
+        - String secretKey
+        - Key getSigningKey()
+        + String extractUsername(String token)
+        + Date extractExpiration(String token)
+        + <T> T extractClaim(String token, Function<Claims, T>)
+        + String generateToken(UserDetails userDetails)
+        + boolean validateToken(String token, UserDetails userDetails)
+        - String createToken(Map<String, Object>, String)
+        - Claims extractAllClaims(String token)
+        - boolean isTokenExpired(String token)
     }
 
     class UserDetailsImpl {
@@ -75,31 +82,20 @@ classDiagram
         +getUser(): User
     }
 
-flowchart TD
-    A[Client Request: POST /api/auth/login] --> B[AuthController.login()]
-    B --> C[AuthRequest (DTO)\n.getEmail()\n.getPassword()]
-    B --> D[AuthenticationManager.authenticate()]
-    D --> E[UsernamePasswordAuthenticationToken]
-    D --> F[UserDetailsImpl\n(authentication.getPrincipal())]
-    F --> G[User (entidade do banco)]
-    B --> H[JwtUtil.generateToken(UserDetailsImpl)]
-    H --> I[createToken()\n(subject: user.getEmail())]
-    I --> J[getSigningKey()\n(secretKey decodificado)]
-    I --> K[Jwts.builder().compact()]
-    B --> L[AuthResponse(token)]
+    class AuthController {
+        - AuthenticationManager authenticationManager
+        - JwtUtil jwtUtil
+        + AuthResponse login(AuthRequest authRequest)
+    }
 
-    style A fill:#d9f2ff,stroke:#007acc,stroke-width:2px
-    style B fill:#c1e1c1,stroke:#228b22,stroke-width:2px
-    style C fill:#fff2cc,stroke:#c47f00
-    style D fill:#f9d5e5,stroke:#d63384
-    style E fill:#fbeec1,stroke:#e1ad01
-    style F fill:#dcd6f7,stroke:#6a5acd
-    style G fill:#e2f0cb,stroke:#7c9a55
-    style H fill:#ffe0ac,stroke:#d35400
-    style I fill:#f7cac9,stroke:#c94c4c
-    style J fill:#e0f7fa,stroke:#00acc1
-    style K fill:#e6ccff,stroke:#8e44ad
-    style L fill:#d1f2eb,stroke:#117864
+    class AuthRequest {
+        - String email
+        - String password
+        + getEmail() String
+        + setEmail(String)
+        + getPassword() String
+        + setPassword(String)
+    }
 
 
     AuthRegisterController --> RegisterRequest
@@ -114,5 +110,14 @@ flowchart TD
     UserRepository ..|> JpaRepository
     UserController --> UserRepository
     UserRepository --> User
+
+    AuthController --> AuthRequest
+    AuthController --> AuthResponse
+    AuthController --> JwtUtil
+    JwtUtil --> UserDetails
+    UserDetailsImpl --> User
+    UserDetailsImpl ..|> UserDetails
+    JwtUtil --> Claims
+    JwtUtil --> Function
 
 ```
