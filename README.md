@@ -1,8 +1,8 @@
-# Gestão de serviços e processos
+# Service and process management
 
-## Sistema web de acompanhamento de serviços e processos em todos os níveis, que contempla uma visualização através de kanban board, métricas de fluxo e fluxos por nó (onde é possível enxergar todos os serviços da organização).
+## Web system for monitoring services and processes at all levels, which includes visualization through a kanban board, flow metrics and flows by node (where it is possible to see all of the organization's services).
 
-### Tecnologias utilizadas:
+### Technologies used:
 - Back-end: Java, Spring Boot, JWT
-- Banco de dados: PostgreSQL
-- Front-end: Typescript com Angular
+- Database: PostgreSQL
+- Front-end: Typescript with Angular
