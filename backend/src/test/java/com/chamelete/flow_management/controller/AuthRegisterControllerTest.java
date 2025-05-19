@@ -78,7 +78,5 @@ public class AuthRegisterControllerTest {
         assertEquals("hashedPassword", savedUser.getPassword());
         assertNotNull(registerRequest);
         assertEquals("fake-jwt-token", response.getToken());
-    }
-
-    
+    }    
 }
