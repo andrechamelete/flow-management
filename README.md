@@ -143,7 +143,6 @@ classDiagram
     UserRepository --> User
     UserRepository ..|> JpaRepository
     UserController --> UserRepository
-    UserRepository --> User
 
     AuthController --> AuthRequest
     AuthController --> AuthResponse
