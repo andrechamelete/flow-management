@@ -10,14 +10,14 @@ const routes: Routes = [
     },
     {
         path: "home",
-        loadChildren: () => import('./features/home/home.component').then(m => m.HomeComponent)
+        loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent)
     },
     {
         path: '**', redirectTo: 'home'
     },
     {
         path: 'dashboard',
-        loadChildren: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
+        loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
     }
 ]
 
