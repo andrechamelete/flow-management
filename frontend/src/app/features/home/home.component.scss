@@ -1,0 +1,61 @@
+.auth-container {
+    max-width: 100%;
+    max-height: fit-content;
+    margin: auto;
+    text-align: center;
+    display: grid;
+    grid-template-areas: "appName tabs" "appName tab-content";
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.appName {
+    width: 50vw;
+    font-size: 200%;
+    color:  darkblue;
+    height: 10vh;
+
+
+}
+
+.tabs {
+    width: 40vw;
+
+}
+
+.nav-auth {
+    justify-content: left;
+}
+
+.tabs button {
+
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #eee;
+    border-radius: 5px;
+
+}
+
+.tabs button.active {
+    background-color: #ccc;
+    font-weight: bold;
+}
+
+input {
+    display: block;
+    margin: 10px auto;
+    width: 80%;
+    padding: 10px;
+}
+
+button[type="submit"] {
+    margin: 10px auto;
+    padding: 8px;
+    width: 80%;
+}
+
+.tab-content form {
+    height: 10vh;
+}

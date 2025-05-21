@@ -1,0 +1,27 @@
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HomeComponent } from './features/home/home.component';
+import { RouterModule } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, ReactiveFormsModule],
+  template: `
+  <router-outlet></router-outlet>`,
+  styleUrl: './app.component.scss'
+})
+
+export class AppComponent {
+  applyForm = new FormGroup({
+    username: new FormControl(''),
+    email: new FormControl(''),
+    password: new FormControl('')
+  });
+}
+
+/*
+export class AppComponent {
+  title = 'frontend';
+}
+*/

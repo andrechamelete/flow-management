@@ -1,0 +1,36 @@
+<section class="auth-container">
+    <div class="appName">
+        <h1>FlowManaging</h1>
+    </div>
+    
+    <div class="tabs">
+        <div class="nav-auth">
+            <button (click)="switchTab('login')"
+                [class.active]="activeTab === 'login'">Login</button>
+
+            <button (click)="switchTab('register')"
+                [class.active]="activeTab === 'register'">Register</button>
+        </div>
+
+        <div class="tab-content">
+            <form *ngIf="activeTab === 'login'" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                <input type="email" placeholder="Email" formControlName="email" />
+                <input type="password" placeholder="Password" formControlName="password" />
+                <button type="submit" [disabled]="loginForm.invalid">Login</button>
+            </form>      
+        
+            <form *ngIf="activeTab === 'register'" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+
+                <input type="text" placeholder="Full name" formControlName="fullName" />
+
+
+                <input type="email" placeholder="E-mail" formControlName="email" />
+
+
+                <input type="password" placeholder="Password" formControlName="password">
+
+                <button type="submit" [disabled]="registerForm.invalid">Register</button>
+            </form>
+        </div>
+    </div>
+</section>
