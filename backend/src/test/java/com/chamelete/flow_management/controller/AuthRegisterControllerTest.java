@@ -73,7 +73,7 @@ public class AuthRegisterControllerTest {
         verify(userRepository).save(userCaptor.capture());
         User savedUser = userCaptor.getValue();
 
-        assertEquals("André", savedUser.getUsername());
+        assertEquals("André", savedUser.getFullName());
         assertEquals("andre@chamelete.com", savedUser.getEmail());
         assertEquals("hashedPassword", savedUser.getPassword());
         assertNotNull(registerRequest);
