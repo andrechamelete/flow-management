@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthRegisterController {
@@ -31,7 +32,7 @@ public class AuthRegisterController {
         }
 
         User newUser = new User();
-        newUser.setUsername(request.getName());
+        newUser.setFullName(request.getFullName());
         newUser.setEmail(request.getEmail());
         newUser.setPassword(passwordEncoder.encode(request.getPassword()));
         userRepository.save(newUser);

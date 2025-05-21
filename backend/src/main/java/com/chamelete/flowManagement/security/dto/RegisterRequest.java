@@ -1,25 +1,25 @@
 package com.chamelete.flowManagement.security.dto;
 
 public class RegisterRequest {
-    private String name;
+    private String fullName;
     private String email;
     private String password;
 
     public RegisterRequest() {
     }
 
-    public RegisterRequest(String name, String email, String password) {
-        this.name = name;
+    public RegisterRequest(String fullName, String email, String password) {
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
