@@ -14,6 +14,10 @@ const routes: Routes = [
     },
     {
         path: '**', redirectTo: 'home'
+    },
+    {
+        path: 'dashboard',
+        loadChildren: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
     }
 ]
 
