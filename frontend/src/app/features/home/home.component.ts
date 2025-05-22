@@ -47,7 +47,6 @@ export class HomeComponent {
             console.log('Login failed: ', error)
           }
         })
-      //console.log('Login Data', this.loginForm.value);
     }
   }
 
@@ -64,25 +63,6 @@ export class HomeComponent {
             console.log('Register failed: ', error)
           }
         })
-      //console.log('Register data', this.registerForm.value);
     }
   }
-
-
-  /*
-  constructor(private http: HttpClient) {}
-
-  onRegister() {
-   if(this.applyForm.valid) {
-    const { username, email, password} = this.applyForm.value;
-    this.http.post('http://localhost/api/auth/register', {
-      username,
-      email,
-      password
-    }).subscribe({
-      next: (res) => console.log('login succesful', res),
-      error: (err) => console.error('Login failed', err)
-    });
-   }
-  }*/
 }

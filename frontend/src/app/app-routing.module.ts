@@ -1,3 +1,5 @@
+// não mexer nesse arquivo, ele pode ser deletado
+
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { appRoutes } from "./app.routes";

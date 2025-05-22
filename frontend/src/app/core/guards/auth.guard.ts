@@ -17,8 +17,3 @@ export class AuthGuard implements CanActivate {
     }
   }
 }
-
-/*
-export const authGuard: CanActivateFn = (route, state) => {
-  return true;
-}; */
