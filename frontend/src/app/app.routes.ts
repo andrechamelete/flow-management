@@ -11,12 +11,17 @@ const routeConfig: Routes = [
     },
     { 
         path: 'home',
-        component: HomeComponent 
+        component: HomeComponent,
+        title: 'Home'
     },
     {
         path: 'dashboard',
         component: DashboardComponent,
+        title: 'Dashboard',
         canActivate: [AuthGuard]
+    },
+    {
+        path: '**', redirectTo: 'home'
     }
 ];
 
