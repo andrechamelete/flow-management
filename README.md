@@ -171,13 +171,69 @@ classDiagram
     erDiagram
     User {
         int id PK
-        string nome
+        string created_by FK
+        string name
+        date created_at        
     }
 
     Flow {
         int id PK
-        int id_user FK
+        int id_organization FK
+        int created_by FK
+        string name
+        string description
+        date created_at
     }
+
+    user_permission {
+        int id PK
+        int id_permission FK
+        int id_organization FK
+        int id_user FK
+        int assigned_by FK
+        data created_at
+    }
+
+    permissions {
+        int id PK
+        string type
+    }
+
+    cards {
+        int id PK
+        int id_flow FK
+        string name
+        sting description
+        int id_status FK
+        int position
+        date created_at
+        int created_by FK
+        date last_update
+        int assigned_to FK
+    }
+
+    status {
+        int id PK
+        int id_flow FK
+        string name
+        int position
+    }
+
+    users {
+        int id PK
+        string fullName
+        string email
+        string password
+    }
+
+    moving {
+        int id PK
+        int id_card FK
+        int moved_to_status FK
+        int moved_by FK
+        date moved_at
+    }
+    
 
     User ||--o{ Flow : "has"
 ```
