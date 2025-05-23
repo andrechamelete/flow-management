@@ -167,17 +167,16 @@ classDiagram
 
 ## Tables
 ```mermaid
-    organization {
+    erDiagram
+    User {
         int id PK
-        string name
-        date created_at
+        string nome
+    }
+
+    Flow {
+        int id PK
         int id_user FK
     }
 
-    flow {
-        int id
-        int id_organization
-    }
-
-    organization ||--o{ flow : "has"
+    User ||--o{ Flow : "has"
 ```
