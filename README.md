@@ -181,6 +181,7 @@ classDiagram
         int created_by FK
         string name
         date created_at
+    }
 
     flow {
         int id PK
@@ -197,7 +198,7 @@ classDiagram
         int id_organization FK
         int id_user FK
         int assigned_by FK
-        data created_at
+        date created_at
     }
 
     permissions {
@@ -209,7 +210,7 @@ classDiagram
         int id PK
         int id_flow FK
         string name
-        sting description
+        string description
         int id_status FK
         int position
         date created_at
@@ -231,7 +232,7 @@ classDiagram
         int moved_to_status FK
         int moved_by FK
         date moved_at
-    }    
+    }  
 
     users ||--o{ organization : "has"
     users ||--o{ flow : "has"
