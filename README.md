@@ -234,16 +234,19 @@ classDiagram
         date moved_at
     }  
 
-    users ||--o{ organization : "has"
-    users ||--o{ flow : "has"
-    users ||--|| user_permission : "has"
-    users ||--o{ cards : "has"
-    users ||--o{ moving : "has"
-    flow o{--|| organization : "has"
-    user_permission o{--o{ organization : "has"
-    user_permission ||--|| permissions : "has"
-    cards o{--|| flow : "has"
-    status ||--o{ flow : "has"
-    moving ||--|| status : "has"      
+    organization o{--|| users : "created_by"
+    flow o{--|| users : "created_by"
+    user_permission ||--|| user : "id_user"
+    user_permission ||--|| user : "assigned_by"
+    cards o{--|| users : "assigned_to"
+    cards ||--|| users : "created_by"
+    moving o}--|| users : "moved_by"
+    flow o{--|| organization : "id_organization"
+    user_permission o{--o{ organization : "id_organization"
+    user_permission ||--|| permissions : "id_permission"
+    cards o{--|| flow : "id_flow"
+    status ||--o{ flow : "id_flow"
+    moving ||--|| status : "moved_to"
+    moving ||--|| cards : "id_card"  
 
 ```
