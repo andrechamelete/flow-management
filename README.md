@@ -240,7 +240,7 @@ classDiagram
     user_permission ||--|| users : "assigned_by"
     cards o{--|| users : "assigned_to"
     cards ||--|| users : "created_by"
-    moving o}--|| users : "moved_by"
+    moving o{--|| users : "moved_by"
     flow o{--|| organization : "id_organization"
     user_permission o{--o{ organization : "id_organization"
     user_permission ||--|| permissions : "id_permission"
