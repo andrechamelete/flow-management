@@ -9,6 +9,11 @@ Web system for monitoring services and processes at all levels, which includes v
 
 ## Register / Login funcionality
 ```mermaid
+config:
+  layout: dagre
+  look: classic
+  theme: default
+
 classDiagram
     class User {
         +Long id
