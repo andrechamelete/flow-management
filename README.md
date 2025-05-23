@@ -238,7 +238,7 @@ classDiagram
     users ||--|| user_permission : "has"
     users ||--o{ cards : "has"
     users ||--o{ moving : "has"
-    flow o}--|| organization : "has"
+    flow o{--|| organization : "has"
     user_permission o{--o{ organization : "has"
     user_permission ||--|| permissions : "has"
     cards o{--|| flow : "has"
