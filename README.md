@@ -236,8 +236,8 @@ classDiagram
 
     organization o{--|| users : "created_by"
     flow o{--|| users : "created_by"
-    user_permission ||--|| user : "id_user"
-    user_permission ||--|| user : "assigned_by"
+    user_permission ||--|| users : "id_user"
+    user_permission ||--|| users : "assigned_by"
     cards o{--|| users : "assigned_to"
     cards ||--|| users : "created_by"
     moving o}--|| users : "moved_by"
@@ -246,7 +246,7 @@ classDiagram
     user_permission ||--|| permissions : "id_permission"
     cards o{--|| flow : "id_flow"
     status ||--o{ flow : "id_flow"
-    moving ||--|| status : "moved_to"
+    moving ||--|| status : "moved_to_status"
     moving ||--|| cards : "id_card"  
 
 ```
