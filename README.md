@@ -169,14 +169,20 @@ classDiagram
 ## Tables
 ```mermaid
     erDiagram
-    User {
+    users {
         int id PK
         string created_by FK
         string name
         date created_at        
     }
 
-    Flow {
+    organization {
+        int id PK
+        int created_by FK
+        string name
+        date created_at
+
+    flow {
         int id PK
         int id_organization FK
         int created_by FK
@@ -219,21 +225,24 @@ classDiagram
         int position
     }
 
-    users {
-        int id PK
-        string fullName
-        string email
-        string password
-    }
-
     moving {
         int id PK
         int id_card FK
         int moved_to_status FK
         int moved_by FK
         date moved_at
-    }
-    
+    }    
 
-    User ||--o{ Flow : "has"
+    users ||--o{ organization : "has"
+    users ||--o{ flow : "has"
+    users ||--|| user_permission : "has"
+    users ||--o{ cards : "has"
+    users ||--o{ moving : "has"
+    flow o}--|| organization : "has"
+    user_permission o{--o{ organization : "has"
+    user_permission ||--|| permissions : "has"
+    cards o{--|| flow : "has"
+    status ||--o{ flow : "has"
+    moving ||--|| status : "has"      
+
 ```
