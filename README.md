@@ -248,5 +248,6 @@ classDiagram
     status ||--o{ flow : "id_flow"
     moving ||--|| status : "moved_to_status"
     moving ||--|| cards : "id_card"
-
 ```
+
+![Tables] (https://app.diagrams.net/?title=tabelas.drawio&lightbox=1&page-id=bEh3KsQN7jI2NcH5xCRv&client=1)
