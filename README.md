@@ -250,4 +250,4 @@ classDiagram
     moving ||--|| cards : "id_card"
 ```
 
-![Tables] (tables.png)
+![Tables](tables.png)
