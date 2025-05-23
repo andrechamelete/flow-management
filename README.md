@@ -164,3 +164,20 @@ classDiagram
     UserRepository --> User
 
 ```
+
+## Tables
+```mermaid
+    organization {
+        int id PK
+        string name
+        date created_at
+        int id_user FK
+    }
+
+    flow {
+        int id
+        int id_organization
+    }
+
+    organization ||--o{ flow : "has"
+```
