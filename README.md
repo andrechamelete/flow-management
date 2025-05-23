@@ -247,6 +247,6 @@ classDiagram
     cards o{--|| flow : "id_flow"
     status ||--o{ flow : "id_flow"
     moving ||--|| status : "moved_to_status"
-    moving ||--|| cards : "id_card"  
+    moving ||--|| cards : "id_card"
 
 ```
