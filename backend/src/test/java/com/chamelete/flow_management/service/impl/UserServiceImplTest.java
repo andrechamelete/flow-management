@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -14,6 +15,7 @@ import static org.mockito.Mockito.*;
 import com.chamelete.flowManagement.model.User;
 import com.chamelete.flowManagement.repository.UserRepository;
 import com.chamelete.flowManagement.service.impl.UserServiceImpl;
+import com.chamelete.flowManagement.security.dto.RegisterRequest;;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceImplTest {
@@ -24,19 +26,21 @@ public class UserServiceImplTest {
     @InjectMocks
     private UserServiceImpl userServiceImpl;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     @Test
     void createUser_whenEmailNotExists_shouldSaveuser() {
         String email = "teste@chamelete.com";
-        User userToCreate = new User();
-        userToCreate.setEmail(email);
+        RegisterRequest register = new RegisterRequest("nome", email, "pass");
+
+        User createdUser = userServiceImpl.create(register);
 
         when(userRepository.existsByEmail(email)).thenReturn(false);
-        when(userRepository.save(userToCreate)).thenReturn(userToCreate);
+        when(userRepository.save(createdUser)).thenReturn(createdUser);
 
-        User createdUser = userServiceImpl.create(userToCreate);
-
-        assertNotNull(createdUser);
         assertEquals(email, createdUser.getEmail());
+        assertNotNull(createdUser);
     }
 
     @Test
@@ -46,8 +50,10 @@ public class UserServiceImplTest {
 
         when(userRepository.existsByEmail(userToCreate.getEmail())).thenReturn(true);
 
+        RegisterRequest request = new RegisterRequest("nome", userToCreate.getEmail(), "pass");
+
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            userServiceImpl.create(userToCreate);
+            userServiceImpl.create(request);
         });
 
         assertEquals("This Account Number already exists!", exception.getMessage());
