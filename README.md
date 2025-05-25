@@ -9,6 +9,7 @@ Web system for monitoring services and processes at all levels, which includes v
 
 ## Register / Login funcionality
 ```mermaid
+
 classDiagram
     class User {
         +Long id
@@ -164,3 +165,6 @@ classDiagram
     UserRepository --> User
 
 ```
+
+## Tables
+![Tables](tables.png)
