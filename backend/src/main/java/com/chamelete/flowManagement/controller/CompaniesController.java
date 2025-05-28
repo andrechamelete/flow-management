@@ -37,13 +37,13 @@ public class CompaniesController {
         this.userService = userService;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Companies> create(@RequestBody CompaniesRequest dot) {
         Companies company = companiesService.create(dot);
         return ResponseEntity.status(HttpStatus.CREATED).body(company);
     }
 
-    @GetMapping("/my-companies")
+    @GetMapping
     public ResponseEntity<List<Companies>> getMyCompanies() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
