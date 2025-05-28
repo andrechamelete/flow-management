@@ -14,15 +14,5 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 
 export class AppComponent {
-  applyForm = new FormGroup({
-    username: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl('')
-  });
-}
 
-/*
-export class AppComponent {
-  title = 'frontend';
 }
-*/

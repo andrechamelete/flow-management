@@ -1,1 +1,22 @@
-<p>dashboard works!</p>
+<p *ngIf="loading">Loading companies...</p>
+<p *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<div *ngIf="!loading && !errorMessage">
+    <input 
+        type="text" 
+        class="form-control"
+        [(ngModel)]="selectedCompany" 
+        [ngbTypeahead]="search"
+        [resultFormatter]="formatter"
+        [inputFormatter]="formatter"
+        [resultTemplate]="rt"
+        (selectItem)="onSelectItem($event)"
+        placeholder="Select a company"
+        [editable]="false"  />
+    <button class="btn btn-outline-secondary" (click)="toggleDropdown()">▼</button>
+    <button class="btn btn-outline-secondary" (click)="lauchCreateCompany()">create</button>
+
+    <ng-template #rt let-r="result" let-t="term">
+    <div class="dropdown-item">{{ r.name }}</div>
+    </ng-template>
+</div>

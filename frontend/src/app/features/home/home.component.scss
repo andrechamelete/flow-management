@@ -21,11 +21,6 @@
 
 .tabs {
     width: 40vw;
-
-}
-
-.nav-auth {
-    justify-content: left;
 }
 
 .tabs button {
@@ -56,6 +51,14 @@ button[type="submit"] {
     width: 80%;
 }
 
+.tab-content {
+    border: 1px solid #000000;
+    height: 30vh;
+    border-radius: 5px;
+    width: 40vw;
+}
+
 .tab-content form {
     height: 10vh;
+
 }

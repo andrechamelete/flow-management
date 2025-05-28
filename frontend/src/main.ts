@@ -3,11 +3,12 @@ import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 import { provideRouter } from '@angular/router';
 import routeConfig from './app/app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './app/interceptors/auth.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideRouter(routeConfig)
   ]
 })
