@@ -1,7 +1,7 @@
 <p *ngIf="loading">Loading companies...</p>
 <p *ngIf="errorMessage">{{ errorMessage }}</p>
 
-<div *ngIf="!loading && !errorMessage">
+<div *ngIf="!loading && !errorMessage" class="d-flex align-items-start">
     <input 
         type="text" 
         class="form-control"

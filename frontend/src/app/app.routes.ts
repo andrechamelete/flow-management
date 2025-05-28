@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { NoAuthGuard } from './core/guards/no-auth.guard';
 
 const routeConfig: Routes = [
     { 
@@ -12,7 +13,8 @@ const routeConfig: Routes = [
     { 
         path: 'home',
         component: HomeComponent,
-        title: 'Home'
+        title: 'Home',
+        canActivate: [NoAuthGuard]
     },
     {
         path: 'dashboard',

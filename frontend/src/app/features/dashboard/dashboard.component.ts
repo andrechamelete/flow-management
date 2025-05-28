@@ -5,15 +5,16 @@ import { CompanyService } from '../../service/company.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, merge, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { NgbTypeaheadSelectItemEvent, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbTypeaheadSelectItemEvent, NgbTypeaheadModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { CompanyCreateComponent } from './company-create/company-create.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
-  standalone: true, // talvez precise tirar
-  imports: [CommonModule, NgbTypeaheadModule, FormsModule]
+  standalone: true,
+  imports: [CommonModule, NgbTypeaheadModule, FormsModule, NgbModule]
 })
 
 export class DashboardComponent implements OnInit {
@@ -22,7 +23,7 @@ export class DashboardComponent implements OnInit {
   loading: boolean = true;
   errorMessage: string | null = null;
 
-  constructor(private companyService: CompanyService) { }
+  constructor(private companyService: CompanyService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.loading = true;
@@ -50,8 +51,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-selectedCompany: Company | null = null;
-  private manualTrigger$ = new Subject<string>();
+  selectedCompany: Company | null = null;
+    private manualTrigger$ = new Subject<string>();
 
 
   search = (text$: Observable<string>) => {
@@ -78,7 +79,14 @@ selectedCompany: Company | null = null;
     this.manualTrigger$.next('');
   }
 
-  lauchCreateCompany(): void {
-    alert('Create Company');
+  lauchCreateCompany() {
+    console.log("lauchCreateCompany");
+    const modalRef = this.modalService.open(CompanyCreateComponent);
+    modalRef.result.then((result) => {
+      if(result) {
+        this.companies.push(result);
+        this.selectedCompany = result;
+      }
+    }).catch((reason) => {});
   }
 }

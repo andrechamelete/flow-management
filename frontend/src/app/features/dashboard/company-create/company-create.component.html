@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <h4 class="modal-title">Create New Company</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <form #createForm="ngForm" (ngSubmit)="createCompany()">
+    <div class="mb-3">
+      <label for="companyName" class="form-label">Company Name:</label>
+      <input type="text" class="form-control" id="companyName" name="companyName" [(ngModel)]="companyName" required>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!createForm.valid">Create</button>
+  </form>
+</div>
