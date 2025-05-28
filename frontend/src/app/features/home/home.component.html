@@ -21,14 +21,9 @@
         
             <form *ngIf="activeTab === 'register'" [formGroup]="registerForm" (ngSubmit)="onRegister()">
 
-                <input type="text" placeholder="Full name" formControlName="fullName" />
-
-
+                <input type="text" placeholder="Username" formControlName="fullName" />
                 <input type="email" placeholder="E-mail" formControlName="email" />
-
-
                 <input type="password" placeholder="Password" formControlName="password">
-
                 <button type="submit" [disabled]="registerForm.invalid">Register</button>
             </form>
         </div>
