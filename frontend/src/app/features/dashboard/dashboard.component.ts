@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Company } from '../../models/company';
 import { CompanyService } from '../../service/company.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, merge, Subject } from 'rxjs';
+import { Observable, merge, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { NgbModal, NgbTypeaheadSelectItemEvent, NgbTypeaheadModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { CompanyCreateComponent } from './company-create/company-create.component';
+import { SessionService } from '../../service/session.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,15 +24,25 @@ export class DashboardComponent implements OnInit {
   companies: Company[] = [];
   loading: boolean = true;
   errorMessage: string | null = null;
+  selectedCompany: Company | null = null;
 
-  constructor(private companyService: CompanyService, private modalService: NgbModal) { }
+  constructor(
+    private companyService: CompanyService, 
+    private modalService: NgbModal, 
+    private sessionService: SessionService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.loading = true;
     this.companyService.getMyCompanies().subscribe({
         next: (data: Company[]) => {
             this.companies = data;
+            const savedCompanyId = this.sessionService.getCompany();
+            if (savedCompanyId) {
+              this.selectedCompany = this.companies.find(c => c.id.toString() === savedCompanyId) || null;
+            }
             this.loading = false;
+
         },
         error: (err: any) => {
             this.loading = false;
@@ -51,8 +63,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  selectedCompany: Company | null = null;
-    private manualTrigger$ = new Subject<string>();
+  
+  private manualTrigger$ = new Subject<string>();
 
 
   search = (text$: Observable<string>) => {
@@ -71,8 +83,8 @@ export class DashboardComponent implements OnInit {
   formatter = (company: Company) => company.name;
 
   onSelectItem(event: NgbTypeaheadSelectItemEvent<Company>) {
-    this.selectedCompany = event.item; // Set selected company
-    // Do something with the selected company, e.g., update a form
+    this.selectedCompany = event.item;
+    this.sessionService.setCompany(event.item.id.toString());
   }
 
   toggleDropdown() {
@@ -88,5 +100,10 @@ export class DashboardComponent implements OnInit {
         this.selectedCompany = result;
       }
     }).catch((reason) => {});
+  }
+
+  unlogging(): void {
+    this.sessionService.clearSession();
+    this.router.navigate(['/home'])
   }
 }

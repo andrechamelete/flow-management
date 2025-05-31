@@ -1,22 +1,33 @@
 <p *ngIf="loading">Loading companies...</p>
 <p *ngIf="errorMessage">{{ errorMessage }}</p>
 
-<div *ngIf="!loading && !errorMessage" class="d-flex align-items-start">
-    <input 
-        type="text" 
-        class="form-control"
-        [(ngModel)]="selectedCompany" 
-        [ngbTypeahead]="search"
-        [resultFormatter]="formatter"
-        [inputFormatter]="formatter"
-        [resultTemplate]="rt"
-        (selectItem)="onSelectItem($event)"
-        placeholder="Select a company"
-        [editable]="false"  />
-    <button class="btn btn-outline-secondary" (click)="toggleDropdown()">▼</button>
-    <button class="btn btn-outline-secondary" (click)="lauchCreateCompany()">create</button>
+<div class="dashboard-nav">
+    <div *ngIf="!loading && !errorMessage" class="d-flex align-items-start">
+        <input 
+            type="text" 
+            class="form-control"
+            [(ngModel)]="selectedCompany" 
+            [ngbTypeahead]="search"
+            [resultFormatter]="formatter"
+            [inputFormatter]="formatter"
+            [resultTemplate]="rt"
+            (selectItem)="onSelectItem($event)"
+            placeholder="Select a company"
+            [editable]="false"  />
+        <button class="btn btn-outline-primary" (click)="toggleDropdown()">▼</button>
+        <button class="btn btn-outline-success add" title="add a company" (click)="lauchCreateCompany()">
+            <i class="bi bi-plus-square-fill"></i>
+        </button>
+        <button class="btn btn-outline-secondary" title="add user">
+            <i class="bi bi-person-fill-add"></i>
+        </button>
 
-    <ng-template #rt let-r="result" let-t="term">
-    <div class="dropdown-item">{{ r.name }}</div>
-    </ng-template>
+        <ng-template #rt let-r="result" let-t="term">
+        <div class="dropdown-item">{{ r.name }}</div>
+        </ng-template>
+    </div>    
+    
+    <button class="btn btn-outline-danger" type="button" title="Log out" (click)="unlogging()">
+        <i class="bi bi-door-closed-fill"></i>
+    </button>
 </div>

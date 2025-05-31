@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SessionService } from '../../service/session.service';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomeComponent {
   loginForm: FormGroup;
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private sessionService: SessionService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -41,6 +42,7 @@ export class HomeComponent {
           next: (response) => {
             console.log('Login success: ', response);
             localStorage.setItem('token', response.token);
+            this.sessionService.setToken(response.token);
             this.router.navigate(['/dashboard']);
           },
           error: (error) => {
@@ -57,6 +59,7 @@ export class HomeComponent {
           next: (response) => {
             console.log('Register success: ', response);
             localStorage.setItem('token', response.token);
+            this.sessionService.setToken(response.token);
             this.router.navigate(['/dashboard']);
           },
           error: (error) => {
