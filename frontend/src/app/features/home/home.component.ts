@@ -41,7 +41,6 @@ export class HomeComponent {
         .subscribe({
           next: (response) => {
             console.log('Login success: ', response);
-            localStorage.setItem('token', response.token);
             this.sessionService.setToken(response.token);
             this.router.navigate(['/dashboard']);
           },
@@ -58,7 +57,6 @@ export class HomeComponent {
         .subscribe({
           next: (response) => {
             console.log('Register success: ', response);
-            localStorage.setItem('token', response.token);
             this.sessionService.setToken(response.token);
             this.router.navigate(['/dashboard']);
           },

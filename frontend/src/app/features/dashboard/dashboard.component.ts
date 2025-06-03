@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
     this.loading = true;
     this.companyService.getMyCompanies().subscribe({
         next: (data: Company[]) => {
-            this.companies = data;
+            this.companies = data.sort((a, b) => a.name.localeCompare(b.name));
             const savedCompanyId = this.sessionService.getCompany();
             if (savedCompanyId) {
               this.selectedCompany = this.companies.find(c => c.id.toString() === savedCompanyId) || null;

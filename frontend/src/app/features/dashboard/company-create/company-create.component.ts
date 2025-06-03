@@ -26,23 +26,26 @@ export class CompanyCreateComponent {
     private http: HttpClient,
     private fb: FormBuilder) {
       this.companyForm = this.fb.group({
-        company: ['', Validators.required]
+        name: ['', Validators.required]
       });
     }
 
   createCompany() {
-    const newCompany: Company = {
-      id: 0,
-      name: this.companyName
-    };
-    
-    this.companyService.createCompany(newCompany).subscribe({
-      next: (createdCompany) => {
-        this.activeModal.close(createdCompany);
-      },
-      error: (error) => {
-        console.error('Error creating company:', error);
-      }
-    });
+    if (this.companyForm.valid) {
+      this.http.post<Company>('http://localhost:8080/companies', this.companyForm.value, {
+        headers: {
+          Authorization: 'Bearer' + this.sessionService.getToken()
+        }
+      }).subscribe({
+          next: (response) => {
+            console.log('Company created succestully', response);
+            this.sessionService.setCompany(response.id.toString());
+            this.activeModal.close(response);
+          },
+          error: (err) => {
+            console.log('Failed to create company', err);
+          }
+        });
+    }
   }
 }
