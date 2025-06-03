@@ -37,7 +37,7 @@ export class HomeComponent {
 
   onLogin() {
     if(this.loginForm.valid) {
-      this.http.post<{token: string}>('http://localhost:8080/api/auth/login', this.loginForm.value)
+      this.http.post<{token: string}>('http://localhost:8080/auth/login', this.loginForm.value)
         .subscribe({
           next: (response) => {
             console.log('Login success: ', response);
@@ -53,7 +53,7 @@ export class HomeComponent {
 
   onRegister() {
     if(this.registerForm.valid) {
-      this.http.post<{token: string}>('http://localhost:8080/api/auth/register', this.registerForm.value)
+      this.http.post<{token: string}>('http://localhost:8080/auth/register', this.registerForm.value)
         .subscribe({
           next: (response) => {
             console.log('Register success: ', response);
