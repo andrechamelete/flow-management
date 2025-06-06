@@ -14,4 +14,6 @@ public interface CompaniesService {
     Companies create(CompaniesRequest companiesDto);
 
     List<Companies> getCompaniesByUser(User user);
+
+    Companies findById(long id);
 }

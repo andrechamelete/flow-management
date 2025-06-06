@@ -14,4 +14,6 @@ public interface CompaniesRepository extends JpaRepository<Companies, Long> {
     Optional<Companies> findByName(String name);
 
     List<Companies> findAllByCreatedBy(User user);
+
+    Companies findById(long id);
 }
