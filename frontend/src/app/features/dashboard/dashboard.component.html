@@ -18,7 +18,7 @@
         <button class="btn btn-outline-success add" title="add a company" (click)="lauchCreateCompany()">
             <i class="bi bi-plus-square-fill"></i>
         </button>
-        <button class="btn btn-outline-secondary" title="add user">
+        <button class="btn btn-outline-secondary" title="add user" [disabled]="selectedCompany === null" (click)="launchGivePermission()">
             <i class="bi bi-person-fill-add"></i>
         </button>
 

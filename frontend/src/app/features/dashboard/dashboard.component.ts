@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { CompanyCreateComponent } from './company-create/company-create.component';
 import { SessionService } from '../../service/session.service';
 import { Router } from '@angular/router';
+import { CompanyPermissionComponent } from './company-permission/company-permission.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -100,6 +101,11 @@ export class DashboardComponent implements OnInit {
         this.selectedCompany = result;
       }
     }).catch((reason) => {});
+  }
+
+  launchGivePermission() {
+    console.log("launch give permission");
+    const modalRef = this.modalService.open(CompanyPermissionComponent);
   }
 
   unlogging(): void {
