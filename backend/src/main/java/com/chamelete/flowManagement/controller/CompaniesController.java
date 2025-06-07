@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.chamelete.flowManagement.model.Companies;
 import com.chamelete.flowManagement.model.User;
 import com.chamelete.flowManagement.security.dto.CompaniesRequest;
+import com.chamelete.flowManagement.security.dto.PermissionRequest;
 import com.chamelete.flowManagement.service.CompaniesService;
 import com.chamelete.flowManagement.service.UserService;
 
@@ -52,5 +53,14 @@ public class CompaniesController {
 
         List<Companies> companies = companiesService.getCompaniesByUser(user);
         return ResponseEntity.ok(companies);
+    }
+
+    @PostMapping("/permission")
+    public ResponseEntity<String> givePermission(@RequestBody PermissionRequest request) {
+        String email = request.getEmail();
+        Long companyId = request.getCompanyId();
+
+        companiesService.givePermission(email, companyId);
+        return ResponseEntity.ok("Permission granted successfully.");
     }
 }

@@ -43,9 +43,13 @@ public class FlowsServiceImpl implements FlowsService {
         
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
-        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new NoSuchElementException("User not found"));
         Long companyId = request.getCompanyId();
-        Companies company = companiesService.findById(companyId);        
+        Companies company = companiesService.findById(companyId);  
+        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new NoSuchElementException("User not found"));
+        if(!companiesService.getCompaniesByUser(user).contains(company)){
+            throw new NoSuchElementException("User does not have access to this company");
+        }
+      
 
         Flows flow = new Flows();
         flow.setName(request.getName());

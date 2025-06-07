@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.chamelete.flowManagement.model.Companies;
 import com.chamelete.flowManagement.model.User;
+import com.chamelete.flowManagement.model.UserPermission;
 import com.chamelete.flowManagement.security.dto.CompaniesRequest;
 
 public interface CompaniesService {
@@ -16,4 +17,6 @@ public interface CompaniesService {
     List<Companies> getCompaniesByUser(User user);
 
     Companies findById(long id);
+
+    UserPermission givePermission(String email, Long companyId);
 }
