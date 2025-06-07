@@ -1,6 +1,8 @@
 package com.chamelete.flowManagement.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,11 +58,15 @@ public class CompaniesController {
     }
 
     @PostMapping("/permission")
-    public ResponseEntity<String> givePermission(@RequestBody PermissionRequest request) {
+    public ResponseEntity<Map<String, String>> givePermission(@RequestBody PermissionRequest request) {
         String email = request.getEmail();
         Long companyId = request.getCompanyId();
 
         companiesService.givePermission(email, companyId);
-        return ResponseEntity.ok("Permission granted successfully.");
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Permission granted successfully.");
+        return ResponseEntity.ok(response);
+        //return ResponseEntity.ok("Permission granted successfully.");
     }
 }
