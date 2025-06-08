@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
+
+  private companyIdSubject = new BehaviorSubject<String | null>(this.getCompany())
+
+  companyChanges$ = this.companyIdSubject.asObservable();
 
   private readonly TOKEN_KEY = 'token';
   private readonly COMPANY_KEY = 'company';
@@ -47,6 +52,7 @@ export class SessionService {
     const value = String(company);
     this.company = value;
     localStorage.setItem(this.COMPANY_KEY, value);
+    this.companyIdSubject.next(value);
   }
 
   getFlow(): string | null {

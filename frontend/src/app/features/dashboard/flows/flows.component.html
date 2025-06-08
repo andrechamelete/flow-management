@@ -1,0 +1,25 @@
+<div class="dashboard-nav">
+    <div  class="d-flex align-items-start">
+        <input 
+            type="text" 
+            class="form-control"
+            [(ngModel)]="selectedFlow" 
+            [ngbTypeahead]="search"
+            [resultFormatter]="formatter"
+            [inputFormatter]="formatter"
+            [resultTemplate]="rt"
+            (selectItem)="onSelectItem($event)"
+            placeholder="Select a flow"
+            [editable]="false"  />
+        <button class="btn btn-outline-primary" (click)="toggleDropdown()">▼</button>
+        <button class="btn btn-outline-success add" title="create flow" (click)="launchCreateFlow()">
+            <i class="bi bi-plus-square-fill"></i>
+        </button>
+
+        <ng-template #rt let-r="result" let-t="term">
+        <div class="dropdown-item">{{ r.name }}</div>
+        </ng-template>
+    </div>    
+    
+
+</div>

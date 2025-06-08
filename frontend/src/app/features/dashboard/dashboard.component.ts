@@ -11,13 +11,14 @@ import { CompanyCreateComponent } from './company-create/company-create.componen
 import { SessionService } from '../../service/session.service';
 import { Router } from '@angular/router';
 import { CompanyPermissionComponent } from './company-permission/company-permission.component';
+import { FlowsComponent } from './flows/flows.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   standalone: true,
-  imports: [CommonModule, NgbTypeaheadModule, FormsModule, NgbModule]
+  imports: [CommonModule, NgbTypeaheadModule, FormsModule, NgbModule, FlowsComponent]
 })
 
 export class DashboardComponent implements OnInit {
@@ -108,7 +109,7 @@ export class DashboardComponent implements OnInit {
     const modalRef = this.modalService.open(CompanyPermissionComponent);
   }
 
-  unlogging(): void {
+  logOut(): void {
     this.sessionService.clearSession();
     this.router.navigate(['/home'])
   }

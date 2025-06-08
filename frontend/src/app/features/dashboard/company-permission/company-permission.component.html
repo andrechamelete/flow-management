@@ -1,11 +1,11 @@
 <div class="modal-header">
-  <h4 class="modal-title">Assign Permission</h4>
+  <h4 class="modal-title">Assign Permission to</h4>
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 </div>
 <div class="modal-body">
   <form [formGroup]="permissionForm" (ngSubmit)="givePermission()">
     <div class="mb-3">
-      <input type="email" placeholder="Give permission to" class="form-control" formControlName="email" required>
+      <input type="email" placeholder="email@email.com" class="form-control" formControlName="email" required>
     </div>
     <button type="submit" class="btn btn-primary" [disabled]="permissionForm.invalid">Assign Permission</button>
   </form>

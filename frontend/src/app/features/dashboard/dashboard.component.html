@@ -15,7 +15,7 @@
             placeholder="Select a company"
             [editable]="false"  />
         <button class="btn btn-outline-primary" (click)="toggleDropdown()">▼</button>
-        <button class="btn btn-outline-success add" title="add a company" (click)="lauchCreateCompany()">
+        <button class="btn btn-outline-success add" title="create company" (click)="lauchCreateCompany()">
             <i class="bi bi-plus-square-fill"></i>
         </button>
         <button class="btn btn-outline-secondary" title="add user" [disabled]="selectedCompany === null" (click)="launchGivePermission()">
@@ -26,8 +26,10 @@
         <div class="dropdown-item">{{ r.name }}</div>
         </ng-template>
     </div>    
-    
-    <button class="btn btn-outline-danger" type="button" title="Log out" (click)="unlogging()">
+
+    <app-flows></app-flows>
+
+    <button class="btn btn-outline-danger" type="button" title="Log out" (click)="logOut()">
         <i class="bi bi-door-closed-fill"></i>
     </button>
 </div>
