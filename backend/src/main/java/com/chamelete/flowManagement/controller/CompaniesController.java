@@ -67,6 +67,5 @@ public class CompaniesController {
         Map<String, String> response = new HashMap<>();
         response.put("message", "Permission granted successfully.");
         return ResponseEntity.ok(response);
-        //return ResponseEntity.ok("Permission granted successfully.");
     }
 }
