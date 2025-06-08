@@ -20,11 +20,11 @@ export class FlowService {
     const company = Number(this.sessionService.getCompany());
     const params = new HttpParams().set("company", company);
     const debugUrl = `${this.apiUrl}?${params.toString()}`;
-    console.log("🔎 Chamando endpoint:", debugUrl);
+    console.log("Chamando endpoint:", debugUrl);
     return this.http.get<Flow[]>(this.apiUrl, { params });
   }
 
-  createFlow(flow: Flow): Observable<Flow> {
+  creatingFlow(flow: Flow): Observable<Flow> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-type': 'applications/json'

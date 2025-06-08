@@ -8,6 +8,8 @@ import { NgbTypeaheadModule, NgbTypeaheadSelectItemEvent, NgbModal, NgbModule } 
 import { Observable, merge, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FlowCreateComponent } from '../flows/flow-create/flow-create.component';
+import { Company } from '../../../models/company';
 
 @Component({
   selector: 'app-flows',
@@ -20,11 +22,17 @@ export class FlowsComponent implements OnInit {
   flows: Flow[] = [];
   selectedFlow: Flow | null = null;
   errorMessage: string | null = null;
+  selectedCompany: String | null = null;
 
   constructor(private sessionService: SessionService, private modalService: NgbModal,  private flowService: FlowService) { }
 
+  get hasSelectedCompany(): boolean {
+    return !!this.sessionService.getCompany();
+  }
+
   ngOnInit(): void {
     this.sessionService.companyChanges$.subscribe(companyId => {
+      this.selectedCompany = companyId;
       this.flowService.getFlows().subscribe({
         next: (data: Flow[]) => {
           this.flows = data.sort((a, b) => a.name.localeCompare(b.name));
@@ -78,5 +86,16 @@ export class FlowsComponent implements OnInit {
     this.manualTrigger$.next('');
   }
 
-  launchCreateFlow() {}
+  launchCreateFlow() {
+    console.log("launchCreateFlow");
+    const modalRef = this.modalService.open(FlowCreateComponent);
+
+    modalRef.result.then((newFlow: Flow) => {
+      this.flows.push(newFlow);
+      this.flows = this.flows.sort((a, b) => a.name.localeCompare(b.name));
+      this.selectedFlow = newFlow;
+    }).catch((error) => {
+      console.log('Modal dismissed', error);
+    })
+  }
 }

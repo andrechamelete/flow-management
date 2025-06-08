@@ -65,9 +65,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  
   private manualTrigger$ = new Subject<string>();
-
 
   search = (text$: Observable<string>) => {
     const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());

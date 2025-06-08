@@ -11,8 +11,10 @@
             (selectItem)="onSelectItem($event)"
             placeholder="Select a flow"
             [editable]="false"  />
-        <button class="btn btn-outline-primary" (click)="toggleDropdown()">▼</button>
-        <button class="btn btn-outline-success add" title="create flow" (click)="launchCreateFlow()">
+        <button class="btn btn-outline-primary" title="list flows" (click)="toggleDropdown()">
+            <i class="bi bi-list"></i>
+        </button>
+        <button class="btn btn-outline-success add" title="create flow" [disabled]="!hasSelectedCompany" (click)="launchCreateFlow()">
             <i class="bi bi-plus-square-fill"></i>
         </button>
 

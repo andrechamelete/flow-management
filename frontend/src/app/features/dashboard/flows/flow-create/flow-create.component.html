@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h4 class="modal-title">Create New Flow</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="flowForm" (ngSubmit)="createFlow()">
+    <div class="mb-3">
+      <input type="text" placeholder="Flow name" class="form-control" formControlName="name" required>
+    </div>
+    <div class="mb-3">
+      <input type="text" placeholder="Description" class="form-control" formControlName="description" required>
+    </div>
+    <div class="mb-3">
+      <input type="text" placeholder="Department" class="form-control" formControlName="department" required>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="flowForm.invalid">Create</button>
+  </form>
+</div>

@@ -14,7 +14,9 @@
             (selectItem)="onSelectItem($event)"
             placeholder="Select a company"
             [editable]="false"  />
-        <button class="btn btn-outline-primary" (click)="toggleDropdown()">▼</button>
+        <button class="btn btn-outline-primary" title="list companies" (click)="toggleDropdown()">
+            <i class="bi bi-list"></i>
+        </button>
         <button class="btn btn-outline-success add" title="create company" (click)="lauchCreateCompany()">
             <i class="bi bi-plus-square-fill"></i>
         </button>
