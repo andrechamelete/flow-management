@@ -12,11 +12,13 @@ import java.util.NoSuchElementException;
 
 import com.chamelete.flowManagement.model.Companies;
 import com.chamelete.flowManagement.model.Flows;
+import com.chamelete.flowManagement.model.Stage;
 import com.chamelete.flowManagement.model.User;
 import com.chamelete.flowManagement.repository.FlowsRepository;
 import com.chamelete.flowManagement.repository.UserRepository;
 import com.chamelete.flowManagement.security.dto.FlowsRequest;
 import com.chamelete.flowManagement.service.FlowsService;
+import com.chamelete.flowManagement.service.StageService;
 import com.chamelete.flowManagement.service.CompaniesService;
 
 @Service
@@ -25,17 +27,18 @@ public class FlowsServiceImpl implements FlowsService {
     private final FlowsRepository flowsRepository;
     private final CompaniesService companiesService;
     private final UserRepository userRepository;
-
+    private final StageService stageService;
 
     @Autowired
     public FlowsServiceImpl(
             FlowsRepository flowsRepository, 
             CompaniesService companiesService, 
-            UserRepository userRepository) {
+            UserRepository userRepository,
+            StageService stageService) {
         this.flowsRepository = flowsRepository;
         this.companiesService = companiesService;
         this.userRepository = userRepository;
-      
+        this.stageService = stageService;      
     }
 
     @Override
@@ -59,9 +62,33 @@ public class FlowsServiceImpl implements FlowsService {
         flow.setCreatedAt(LocalDateTime.now());
         flow.setDepartment(request.getDepartment());
 
+        Flows newFlow = flowsRepository.save(flow);
+
+        Stage toDo = new Stage();        
+        toDo.setFlow(flow);
+        toDo.setName("ToDo");
+        toDo.setPosition(0);
+        toDo.setDone(false);
+
+        Stage doing = new Stage();        
+        doing.setFlow(flow);
+        doing.setName("Doing");
+        doing.setPosition(1);
+        doing.setDone(false);
+
+        Stage done = new Stage();
+        done.setFlow(flow);
+        done.setName("Done");
+        done.setPosition(2);
+        done.setDone(true); 
+
+        stageService.createStage(toDo);
+        stageService.createStage(doing);
+        stageService.createStage(done);
+
         try {
             
-            return flowsRepository.save(flow);
+            return newFlow;
         } catch (Exception e) {
             throw new RuntimeException("Error creating flow", e);
         }
