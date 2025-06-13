@@ -1,6 +1,6 @@
 <div class="board">
   <app-stage *ngFor="let stage of stageList" [stage]="stage" [cardList]="cardList"></app-stage>
-  <button class="btn btn-sm btn-info launchCreateStage" title="Add a column" *ngIf="stageList[0]">
+  <button class="btn btn-sm btn-info launchCreateStage" title="Add a column" *ngIf="stageList.length > 0">
     <i class="bi bi-file-plus-fill"></i>
   </button>
 </div>
