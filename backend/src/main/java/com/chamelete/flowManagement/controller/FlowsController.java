@@ -37,8 +37,8 @@ public class FlowsController {
     @PostMapping
     public ResponseEntity<?> create(@RequestBody FlowsRequest request) {
         //fazer validaçao de se o usuario logado tem permissao de acesso à company que está sendo passada no request
-            Flows flow = flowsService.createFlow(request);
-            return ResponseEntity.status(HttpStatus.CREATED).body(flow);
+        Flows flow = flowsService.createFlow(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(flow);
     }
 
     @GetMapping

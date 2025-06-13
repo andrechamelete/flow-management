@@ -43,6 +43,9 @@ public class Cards {
     @Column(name = "finished_at", nullable = true)
     private LocalDateTime finished_at;
 
+    @Column(name = "due_date", nullable = true)
+    private LocalDateTime due_date;
+
     @ManyToOne
     @JoinColumn(name = "flow", nullable = false)
     private Flows flow;
@@ -56,14 +59,14 @@ public class Cards {
     private User created_by;
 
     @ManyToOne
-    @JoinColumn(name = "assigned_to", nullable = false)
+    @JoinColumn(name = "assigned_to", nullable = true)
     private User assignedTo;
 
     @ManyToOne
-    @JoinColumn(name = "class_of_service", nullable = false)
+    @JoinColumn(name = "class_of_service", nullable = true)
     private ServiceClasses classOfService;
 
     @ManyToOne
-    @JoinColumn(name = "type", nullable = false)
+    @JoinColumn(name = "type", nullable = true)
     private CardType type;
 }

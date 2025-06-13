@@ -34,4 +34,7 @@ public class Stage {
 
     @Column(name = "done", nullable = false)
     private boolean done;
+
+    @Column(name = "wip_limit", nullable = true)
+    private String wipLimit;
 }
