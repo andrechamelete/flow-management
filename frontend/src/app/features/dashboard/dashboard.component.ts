@@ -12,13 +12,14 @@ import { SessionService } from '../../service/session.service';
 import { Router } from '@angular/router';
 import { CompanyPermissionComponent } from './company-permission/company-permission.component';
 import { FlowsComponent } from './flows/flows.component';
+import { BoardComponent } from './screens/board/board.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   standalone: true,
-  imports: [CommonModule, NgbTypeaheadModule, FormsModule, NgbModule, FlowsComponent]
+  imports: [CommonModule, NgbTypeaheadModule, FormsModule, NgbModule, FlowsComponent, BoardComponent]
 })
 
 export class DashboardComponent implements OnInit {

@@ -1,0 +1,47 @@
+.stage {
+    width: 20vw;
+    min-width: 270px;
+    background-color: rgb(240, 240, 240);
+    border-radius: 10px;
+    border: solid 1px rgba(220, 220, 220, 0.45);
+    min-height: 80vh;
+    height: fit-content;
+    margin: 5px;
+    padding: 0;
+}
+
+h5 {
+    text-align: center;
+}
+
+.stage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10px;
+    background-color: rgb(205, 231, 255);
+    border-radius: 10px;
+    height: 40px;
+}
+
+.stage-data {
+    display: flex;
+    margin: 0 auto;
+}
+
+.stage-header h5, 
+.stage-header p {
+    margin: 0;
+}
+
+p {
+    min-width: 25px
+}
+
+.wip {
+    border: solid 1px rgb(141, 141, 141);
+    text-align: center;
+    border-radius: 100%;
+    margin-left: 8px;
+}

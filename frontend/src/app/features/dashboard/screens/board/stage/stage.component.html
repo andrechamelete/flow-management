@@ -1,0 +1,18 @@
+<div class="stage">
+    <div class="stage-header">
+        <div class="wip">
+            <p ondblclick="this.contentEditable=true; this.focus();" 
+            onblur="this.contentEditable=false;" 
+            title="WiP Limit">
+                {{ stage.wipLimit || 0 }}
+            </p>
+        </div>
+        <h5>{{ stage.name }}</h5>
+        <button class="btn btn-sm">
+            <i class="bi bi-pencil-fill"></i>
+        </button>
+    </div>
+    <div class="stage-body">
+        <app-card *ngFor="let card of cardsInStage" [card]="card"></app-card>
+    </div>
+</div>

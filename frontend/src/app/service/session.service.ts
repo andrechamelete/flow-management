@@ -7,8 +7,10 @@ import { BehaviorSubject } from 'rxjs';
 export class SessionService {
 
   private companyIdSubject = new BehaviorSubject<String | null>(this.getCompany())
+  private flowIdSubject = new BehaviorSubject<String | null>(this.getFlow())
 
   companyChanges$ = this.companyIdSubject.asObservable();
+  flowChanges$ = this.flowIdSubject.asObservable();
 
   private readonly TOKEN_KEY = 'token';
   private readonly COMPANY_KEY = 'company';
@@ -66,6 +68,7 @@ export class SessionService {
     const value = String(flow);
     this.flow = value;
     localStorage.setItem(this.FLOW_KEY, value);
+    this.flowIdSubject.next(value);
   }
 
   clearSession() {
