@@ -11,7 +11,7 @@
     background-color: rgb(240, 240, 240);
     border-radius: 10px;
     border: solid 1px rgba(220, 220, 220, 0.45);
-    min-height: 80vh;
+    min-height: calc(80vh + 40px);
     height: fit-content;
     margin: 5px;
     padding: 0;

@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './card.component.scss'
 })
 export class CardComponent {
-  //@Input() stage!: Stage;
+  
   @Input() card!: Card;
-  //@Input() cardList!: Card[];
+
 }

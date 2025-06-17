@@ -1,18 +1,30 @@
 <div class="stage">
     <div class="stage-header">
         <div class="wip">
-            <p ondblclick="this.contentEditable=true; this.focus();" 
-            onblur="this.contentEditable=false;" 
-            title="WiP Limit">
-                {{ stage.wipLimit || 0 }}
-            </p>
+            <ng-container *ngIf="isEditing; else wipText">
+                <input type="number" [(ngModel)]="stage.wipLimit" min="0" class="form-control form-control-sm" width="5px"/>
+
+            </ng-container>
+            <ng-template #wipText>
+                <p title="WiP Limit">{{ cardsInStage.length + "/" + (stage.wipLimit || 0) }}</p>
+            </ng-template>            
         </div>
-        <h5>{{ stage.name }}</h5>
-        <button class="btn btn-sm">
-            <i class="bi bi-pencil-fill"></i>
+        
+        <ng-container *ngIf="isEditing; else nameText">
+            <input type="text" [(ngModel)]="stage.name" class="form-control form-control-sm"/>
+        </ng-container>
+        <ng-template #nameText>
+            <h5>{{ stage.name }}</h5>
+        </ng-template>
+        
+        <button class="btn btn-sm" (click)="isEditing ? save() : toggleEdit()">
+            <i class="bi" [ngClass]="isEditing ? 'bi-floppy2-fill' : 'bi-pencil-fill'"></i>
         </button>
     </div>
-    <div class="stage-body">
+    <div class="stage-body" [ngClass]="{'above-wip-limit': cardsInStage.length > stage.wipLimit}">
         <app-card *ngFor="let card of cardsInStage" [card]="card"></app-card>
+        <button class="btn btn-sm btn-info launchCreateCard" title="Add a card" (click)="launchCreateCard()">
+            <i class="bi bi-plus-square-fill"></i>
+        </button>
     </div>
 </div>

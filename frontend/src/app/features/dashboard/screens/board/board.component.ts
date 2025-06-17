@@ -5,6 +5,8 @@ import { Stage } from '../../../../models/stage';
 import { BoardService } from '../../../../service/board.service';
 import { SessionService } from '../../../../service/session.service';
 import { Card } from '../../../../models/card';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { StageCreateComponent } from '../../stage-create/stage-create.component';
 
 @Component({
   selector: 'app-board',
@@ -14,7 +16,7 @@ import { Card } from '../../../../models/card';
 })
 export class BoardComponent implements OnInit {
 
-  constructor(private boardService: BoardService, private sessionService: SessionService) { }
+  constructor(private boardService: BoardService, private sessionService: SessionService, private modalService: NgbModal) { }
 
   stageList: Stage[] = [];
   cardList: Card[] = [];
@@ -45,5 +47,10 @@ export class BoardComponent implements OnInit {
         console.log('Cards loaded by boardcomp:', this.cardList)
       });
     }
+  }
+
+  launchCreateStage() {
+    console.log("launchCreateStage");
+    const modalRef = this.modalService.open(StageCreateComponent);
   }
 }

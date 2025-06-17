@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <h4 class="modal-title">Create Card</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="cardForm" (ngSubmit)="createCard()">
+    <div class="mb-3">
+      <input type="text" placeholder="* Card title" class="form-control" formControlName="name" required>
+    </div>
+    <div class="mb-3">
+      <input type="text" placeholder="Description" class="form-control" formControlName="description">
+    </div>
+    <div class="mb-3">
+      <input type="date" placeholder="Due date" class="form-control" formControlName="dueDate">
+    </div>
+    <div class="mb-3">
+      <input type="email" placeholder="Assigned to" class="form-control" formControlName="assigneeEmail">
+    </div>
+    <div class="mb-3">
+      <input type="text" placeholder="Class of service" class="form-control" formControlName="class_service">
+    </div>
+    <div class="mb-3">
+      <input type="text" placeholder="Type" class="form-control" formControlName="type">
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="cardForm.invalid">Create</button>
+  </form>
+</div>
