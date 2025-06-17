@@ -6,15 +6,15 @@ export interface Card {
     id: number;
     name: string;
     description: string;
-    created_at: Date;
+    createdAt: Date;
     position: number;
     blocked: boolean;
-    finished_at: Date | null;
-    due_date: Date | null;
+    finishedAt: Date | null;
+    dueDate: Date | null;
     flow: Flow;
     stage: Stage;
-    created_by: User;
-    assignedTo?: User;
+    createdBy?: User;
+    assignedTo?: User | null;
     classofService: string | null;
     type: string | null;
 }

@@ -1,5 +1,10 @@
-<div class="card" [ngClass]="{ 'blocked-card': card.blocked }">
+<div class="card" 
+[ngClass]="{ 'blocked-card': card.blocked }" 
+role="button" tabindex="0" 
+(click)="openModalCard()" 
+(keydown.enter)="openModalCard()"
+(keydown.space)="openModalCard()">
     <h6 class="card-title">{{ card.name }}</h6>
-    <p class="card-due-date" title="due date"><i class="bi bi-calendar2-x text-danger"></i> {{ card.due_date ? (card.due_date | date: 'dd/MM/yy') : 'none'}}</p>
+    <p class="card-due-date" title="due date"><i class="bi bi-calendar2-x text-danger"></i> {{ card.dueDate ? (card.dueDate | date: 'dd/MM/yy') : 'none'}}</p>
     <p class="card-assignee" title="assigned to"><i class="bi bi-person-circle text-success"></i> {{ card.assignedTo?.fullName }}</p>
 </div>

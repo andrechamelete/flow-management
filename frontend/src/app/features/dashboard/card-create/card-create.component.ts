@@ -51,10 +51,10 @@ export class CardCreateComponent {
       this.http.post<Form>('http://localhost:8080/board/card', data).subscribe({
         next: (response) => {
           console.log(response);
-          this.activeModal.close();
+          this.activeModal.close(response);
         },
         error: (error) => {
-          console.log(error);
+          console.log('error creating card', error);
         }
       });
     }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Stage } from '../../../../../models/stage';
 import { BoardService } from '../../../../../service/board.service';
 import { Card } from '../../../../../models/card';
@@ -21,6 +21,7 @@ export class StageComponent {
 
   @Input() stage!: Stage;
   @Input() cardListing!: Card[];
+ // @Output() cardCreated = new EventEmitter<Card>();
 
 
   constructor(
@@ -67,8 +68,17 @@ export class StageComponent {
   }
 
   launchCreateCard() {
+    console.log("Opening modal to create card at stage: ", this.stage.name);
     const modalRef = this.modalService.open(CardCreateComponent);
-    modalRef.componentInstance.stageId = this.stage.id
+    modalRef.componentInstance.stageId = this.stage.id;
+    modalRef.result.then((newCard: Card) => {
+      if (newCard) {
+        this.cardsInStage.push(newCard);
+      }
+    },
+    (reason) => {
+      console.log('Modal closed with reason:', reason);
+    });
   }
 }
 

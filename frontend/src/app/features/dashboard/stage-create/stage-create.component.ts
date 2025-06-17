@@ -43,7 +43,7 @@ export class StageCreateComponent {
         }
       }).subscribe({
         next: (response) => {
-          console.log('Stage created succestully', response);
+          console.log('Stage created successfully', response);
           this.activeModal.close(response);
         },
         error: (error) => {

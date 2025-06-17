@@ -1,0 +1,105 @@
+
+<div class="modal-header">    
+
+    <ng-container *ngIf="isEditing; else nameTitle">
+        <input type="text" [(ngModel)]="card$.name" class="form-control form-control-sm"/>
+    </ng-container>
+    <ng-template #nameTitle>
+            <h4 class="modal-title" #nameTitle>{{card$.name}}</h4>
+    </ng-template>   
+    
+    <button class="btn btn-sm" (click)="isEditing ? save() : toggleEdit()">
+        <i class="bi" [ngClass]="isEditing ? 'bi-floppy2-fill' : 'bi-pencil-fill'"></i>
+    </button>    
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <ng-container *ngIf="isEditing; else bodyModal">
+        <div class="mb-3">
+            <label for="description">Description&nbsp;</label>
+            <input id="description" type="text" [(ngModel)]="card$.description" class="form-control form-control-sm">
+        </div>
+        <div class="mb-3">
+            <label for="assignedToEmail">Assigned&nbsp;to&nbsp;</label>
+            <input id="assignedToEmail" type="email" [(ngModel)]="assignedToEmail" class="form-control form-control-sm">
+        </div>
+        <div class="mb-3">
+            <input type="date" [(ngModel)]="card$.dueDate" class="form-control form-control-sm">
+        </div>
+        <div class="form-check-input mb-3">
+            <input type="checkbox" [(ngModel)]="card$.blocked" class="form-control form-control-sm">
+            <label class="form-check-label" for="classofService">
+                Blocked
+            </label> 
+        </div>
+        <div class="mb-3">
+
+            <label for="classofService">
+                Class of Service
+            </label>
+            <select [(ngModel)]="card$.classofService">
+
+            </select>
+        </div>
+        <div class="mb-3">
+
+            <label for="classofService">
+                Type
+            </label>
+            <select [(ngModel)]="card$.type">
+                
+            </select>
+        </div>        
+    </ng-container>
+    <ng-template class="modal-body" #bodyModal>
+        <div class="mb-3">
+            <h5>Description:&nbsp; </h5><p>{{ card$.description}}</p>
+        </div>    
+        <div class="mb-3">
+            <h5>Assigned to:&nbsp; </h5><p>{{ card$.assignedTo?.email}}</p>
+        </div>
+        <div class="mb-3">
+            <h5>Due date:&nbsp; </h5><p>{{card$.dueDate | date: 'dd/MM/yy'}}</p>
+        </div>
+        <div class="mb-3">
+            <h5>Blocked:&nbsp; </h5><p>{{card$.blocked ? "yes" : "no"}}</p>
+        </div>
+        <div class="mb-3">
+            <h5>Class of service:&nbsp; </h5><p>{{card$.classofService}}</p>
+        </div>
+        <div class="mb-3">
+            <h5>Type:&nbsp; </h5><p>{{card$.type}}</p>
+        </div>
+        <div class="mb-3">
+            <h5>Created by:&nbsp; </h5><p>{{ card$.createdBy?.email}}</p> <h5>&nbsp; at: &nbsp;</h5><p>{{ (card$.createdAt | date: 'dd/MM/yy')}}</p>
+        </div>
+    </ng-template>
+</div>
+
+
+
+<!--        <form [formGroup]="cardForm" (ngSubmit)="createCard()">
+        <div class="mb-3">
+            <input type="text" placeholder="* Card title" class="form-control" formControlName="name" required>
+        </div>
+        <div class="mb-3">
+            <input type="text" placeholder="Description" class="form-control" formControlName="description">
+        </div>
+        <div class="mb-3">
+            <input type="date" placeholder="Due date" class="form-control" formControlName="dueDate">
+        </div>
+        <div class="mb-3">
+            <input type="email" placeholder="Assigned to" class="form-control" formControlName="assigneeEmail">
+        </div>
+        <div class="mb-3">
+            <input type="text" placeholder="Class of service" class="form-control" formControlName="class_service">
+        </div>
+        <div class="mb-3">
+            <input type="text" placeholder="Type" class="form-control" formControlName="type">
+        </div>
+    </form>
+-->
+
+
+
+

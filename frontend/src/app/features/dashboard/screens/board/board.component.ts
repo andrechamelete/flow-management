@@ -52,5 +52,16 @@ export class BoardComponent implements OnInit {
   launchCreateStage() {
     console.log("launchCreateStage");
     const modalRef = this.modalService.open(StageCreateComponent);
+    
+    modalRef.result.then((newStage: Stage) => {
+      if (newStage) {
+        this.stageList.push(newStage);
+      }
+    },
+    (dismissed) => {
+      console.log('Modal dismissed', dismissed);
+      }
+    );
   }
+
 }

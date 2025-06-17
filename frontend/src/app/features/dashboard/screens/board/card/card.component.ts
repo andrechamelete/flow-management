@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-//import { Stage } from '../../../../../models/stage';
 import { Card } from '../../../../../models/card';
 import { CommonModule } from '@angular/common';
+import { CardInfoComponent } from '../../../card-info/card-info.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   standalone: true,
@@ -13,5 +14,13 @@ import { CommonModule } from '@angular/common';
 export class CardComponent {
   
   @Input() card!: Card;
+
+  constructor(private modalService: NgbModal) {}
+
+  openModalCard() {
+    const modalRef = this.modalService.open(CardInfoComponent);
+    modalRef.componentInstance.card$ = this.card;
+    console.log('card info', this.card);
+  }
 
 }
