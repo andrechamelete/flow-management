@@ -16,4 +16,6 @@ public interface StageRepository extends JpaRepository<Stage, Long> {
     boolean existsByFlowAndName(Flows flow, String name);
 
     Stage findByFlowAndName(Flows flow, String name);
+
+    Stage findById(long id);
 }

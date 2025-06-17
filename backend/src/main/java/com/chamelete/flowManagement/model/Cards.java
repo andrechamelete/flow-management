@@ -1,5 +1,6 @@
 package com.chamelete.flowManagement.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -32,7 +33,7 @@ public class Cards {
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Column(name = "position", nullable = false)
     private int position;
@@ -41,10 +42,10 @@ public class Cards {
     private boolean blocked;
 
     @Column(name = "finished_at", nullable = true)
-    private LocalDateTime finished_at;
+    private LocalDateTime finishedAt;
 
     @Column(name = "due_date", nullable = true)
-    private LocalDateTime due_date;
+    private LocalDate dueDate;
 
     @ManyToOne
     @JoinColumn(name = "flow", nullable = false)
@@ -56,7 +57,7 @@ public class Cards {
 
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
-    private User created_by;
+    private User createdBy;
 
     @ManyToOne
     @JoinColumn(name = "assigned_to", nullable = true)

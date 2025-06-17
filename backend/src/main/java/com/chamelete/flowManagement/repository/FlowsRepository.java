@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface FlowsRepository extends JpaRepository<Flows, Long> {
     
     List<Flows> getFlowByCompany(Companies company);
+
+    Flows getFlowById(Long id);
 }

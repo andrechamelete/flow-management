@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-
 @Table(name = "stages")
 public class Stage {
     
@@ -36,5 +35,5 @@ public class Stage {
     private boolean done;
 
     @Column(name = "wip_limit", nullable = true)
-    private String wipLimit;
+    private Integer wipLimit;
 }

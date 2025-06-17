@@ -1,14 +1,12 @@
 package com.chamelete.flowManagement.security.dto;
 
-import com.chamelete.flowManagement.model.Companies;
-import com.chamelete.flowManagement.model.Flows;
-
 public class StageRequest {
-    private Companies company;
-    private Flows flow;
+    private Long companyId;
+    private Long flowId;
     private String name;
-    private int position;
-    private String wipLimit;
+    private Integer position;
+    private Integer wipLimit;
+    private boolean done;
     
     StageRequest() {}
 
@@ -17,27 +15,28 @@ public class StageRequest {
         this.position = position;
     }
 
-    StageRequest(String name, int position, Companies company, Flows flow) {
+    StageRequest(String name, Integer position, Long companyId, Long flowId, Integer wipLimit) {
         this.name = name;
         this.position = position;
-        this.company = company;
-        this.flow = flow;
+        this.companyId = companyId;
+        this.flowId = flowId;
+        this.wipLimit = wipLimit;
     }
 
-    public Companies getCompany() {
-        return company;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public void setCompany(Companies company) {
-        this.company = company;
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
-    public Flows getFlow() {
-        return flow;
+    public Long getFlowId() {
+        return flowId;
     }
 
-    public void setFlow(Flows flow) {
-        this.flow = flow;
+    public void setFlowId(Long flowId) {
+        this.flowId = flowId;
     }
 
     public String getName() {
@@ -48,22 +47,29 @@ public class StageRequest {
         this.name = name;
     }
 
-    public int getPosition() {
+    public Integer getPosition() {
         return position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(Integer position) {
         this.position = position;
     }
 
-    public String getWipLimit() {
+    public Integer getWipLimit() {
         return wipLimit;
     }
 
-    public void setWipLimit(String wipLimit) {
+    public void setWipLimit(Integer wipLimit) {
         this.wipLimit = wipLimit;
     }
 
-    
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
     
 }
