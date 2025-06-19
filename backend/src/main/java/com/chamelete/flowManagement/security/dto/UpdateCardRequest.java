@@ -3,7 +3,7 @@ package com.chamelete.flowManagement.security.dto;
 import java.time.LocalDate;
 
 import com.chamelete.flowManagement.model.CardType;
-import com.chamelete.flowManagement.model.ServiceClasses;
+//import com.chamelete.flowManagement.model.ServiceClasses;
 
 public class UpdateCardRequest {
 
@@ -11,7 +11,7 @@ public class UpdateCardRequest {
     private String description;
     private LocalDate dueDate;
     private String assignedTo;
-    private ServiceClasses classOfService;
+    private Long classOfService;
     private CardType type;
     private boolean blocked;
     
@@ -50,11 +50,11 @@ public class UpdateCardRequest {
         this.assignedTo = assignedToEmail;
     }
 
-    public ServiceClasses getClassOfService() {
+    public Long getClassOfService() {
         return classOfService;
     }
 
-    public void setClassOfService(ServiceClasses classOfService) {
+    public void setClassOfService(Long classOfService) {
         this.classOfService = classOfService;
     }
 

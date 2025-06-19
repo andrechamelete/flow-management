@@ -12,4 +12,6 @@ public interface ServiceClassesRepository extends JpaRepository<ServiceClasses, 
     List<ServiceClasses> findByCompany(Companies companyId);
 
     ServiceClasses findByCompanyAndServiceClass(Companies company, String serviceclass);
+
+    ServiceClasses getById(Long id);
 }

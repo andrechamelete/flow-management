@@ -17,10 +17,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.chamelete.flowManagement.model.Cards;
 import com.chamelete.flowManagement.model.Companies;
 import com.chamelete.flowManagement.model.Flows;
+import com.chamelete.flowManagement.model.ServiceClasses;
 import com.chamelete.flowManagement.model.Stage;
 import com.chamelete.flowManagement.model.User;
 import com.chamelete.flowManagement.repository.CardsRepository;
 import com.chamelete.flowManagement.repository.FlowsRepository;
+import com.chamelete.flowManagement.repository.ServiceClassesRepository;
 import com.chamelete.flowManagement.repository.StageRepository;
 import com.chamelete.flowManagement.repository.UserPermissionRepository;
 import com.chamelete.flowManagement.repository.UserRepository;
@@ -51,18 +53,24 @@ public class CardController {
     @Autowired
     private CardsRepository cardsRepository;
 
+    @Autowired
+    private ServiceClassesRepository serviceClassesRepository;
+
+
     public CardController(UserRepository userRepository, 
                         UserPermissionRepository userPermissionRepository, 
                         CompaniesService companiesService, 
                         FlowsRepository flowsRepository,
                         StageRepository stageRepository,
-                        CardsRepository cardsRepository) {
+                        CardsRepository cardsRepository,
+                        ServiceClassesRepository serviceClassesRepository) {
         this.userRepository = userRepository;
         this.userPermissionRepository = userPermissionRepository;
         this.companiesService = companiesService;
         this.flowsRepository = flowsRepository;
         this.stageRepository = stageRepository;
         this.cardsRepository = cardsRepository;
+        this.serviceClassesRepository = serviceClassesRepository;
     }
 
     //metodo post para criar card
@@ -163,8 +171,11 @@ public class CardController {
             return ResponseEntity.badRequest().body("usuario nulo.");
         }
 
+        Long classOfServiceId = request.getClassOfService();
+        ServiceClasses classOfService = serviceClassesRepository.findById(classOfServiceId).orElse(null);
+
         if(request.getClassOfService() != null) {
-            card.setClassOfService(request.getClassOfService());
+            card.setClassOfService(classOfService);
         }
 
         if(request.getType() != null) {
