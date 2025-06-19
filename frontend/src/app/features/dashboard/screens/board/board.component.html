@@ -1,6 +1,6 @@
 <div class="board">
   @for (stage of stageList; track stage.id) {
-    <app-stage [stage]="stage" [cardListing]="cardList"></app-stage>
+    <app-stage [stage]="stage" [cardListing]="cardList" [connectedDropListsIds]="connectedDropListsIds" (cardMoved)="onCardMoved($event)"></app-stage>
   }  
   <button class="btn btn-sm btn-info launchCreateStage" title="Add a column" *ngIf="stageList.length > 0" (click)="launchCreateStage()">
     <i class="bi bi-file-plus-fill"></i>

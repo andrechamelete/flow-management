@@ -1,5 +1,5 @@
-<div class="stage">
-    <div class="stage-header">
+<div class="stage" CdkDrag>
+    <div class="stage-header" CdkDragHandle>
         <div class="wip">
             <ng-container *ngIf="isEditing; else wipText">
                 <input type="number" [(ngModel)]="stage.wipLimit" min="0" class="form-control form-control-sm"/>
@@ -21,8 +21,12 @@
             <i class="bi" [ngClass]="isEditing ? 'bi-floppy2-fill' : 'bi-pencil-fill'"></i>
         </button>
     </div>
-    <div class="stage-body" [ngClass]="{'above-wip-limit': cardsInStage.length > stage.wipLimit}">
-        <app-card *ngFor="let card of cardsInStage" [card]="card"></app-card>
+    <div class="stage-body" [ngClass]="{'above-wip-limit': cardsInStage.length > stage.wipLimit}" cdkDropList [id]="'stage-' + stage.id" [cdkDropListConnectedTo]="connectedDropListsIds" [cdkDropListData]="cardsInStage" (cdkDropListDropped)="drop($event)">
+        <app-card  class="box-card" *ngFor="let card of cardsInStage, trackBy: trackByCardId" [card]="card" cdkDrag>
+            <div *cdkDragPreview class="cdk-preview" [ngClass]="{ 'blocked-card': card.blocked }" >
+                <h6>{{card.name}}</h6>
+            </div>
+        </app-card>
         <button class="btn btn-sm btn-info launchCreateCard" title="Add a card" (click)="launchCreateCard()">
             <i class="bi bi-plus-square-fill"></i>
         </button>

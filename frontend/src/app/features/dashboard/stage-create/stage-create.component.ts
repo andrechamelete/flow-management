@@ -19,7 +19,7 @@ export class StageCreateComponent {
   constructor(public activeModal: NgbActiveModal, 
               private fb: FormBuilder, 
               private sessionService: SessionService, 
-            private http: HttpClient) {
+              private http: HttpClient) {
     this.stageForm = this.fb.group({
       name: ['', Validators.required],
       wipLimit: [''],
@@ -37,11 +37,7 @@ export class StageCreateComponent {
         done: this.stageForm.value.done
 
       }
-      this.http.post<Stage>('http://localhost:8080/board/stage', data, {
-        headers: {
-          Authorization: 'Bearer' + this.sessionService.getToken()
-        }
-      }).subscribe({
+      this.http.post<Stage>('http://localhost:8080/board/stage', data).subscribe({
         next: (response) => {
           console.log('Stage created successfully', response);
           this.activeModal.close(response);

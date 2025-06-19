@@ -1,3 +1,4 @@
+import { ClassOfService } from "./ClassOfService";
 import { Flow } from "./flow";
 import { Stage } from "./stage";
 import { User } from "./User";
@@ -15,6 +16,6 @@ export interface Card {
     stage: Stage;
     createdBy?: User;
     assignedTo?: User | null;
-    classofService: string | null;
+    classOfService: ClassOfService | null;
     type: string | null;
 }
