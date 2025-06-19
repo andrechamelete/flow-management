@@ -5,6 +5,21 @@ role="button" tabindex="0"
 (keydown.enter)="openModalCard()"
 (keydown.space)="openModalCard()">
     <h6 cdkDragHangle class="card-title">{{ card.name }}</h6>
-    <p class="card-due-date" title="due date"><i class="bi bi-calendar2-x text-danger"></i> {{ card.dueDate ? (card.dueDate | date: 'dd/MM/yy') : 'none'}}</p>
+    @if (card.classOfService?.serviceClass === 'fixed_date') {
+        <p class="service-class card-due-date" title="due date"><i class="bi bi-calendar2-x text-danger"></i> {{ card.dueDate ? (card.dueDate | date: 'dd/MM/yy') : 'none'}}</p>
+    } @else {
+        @switch (card.classOfService?.serviceClass) {
+            @case ('expedite') {
+                <p class="service-class card-expedite" title="expedite"><i class="bi bi-exclamation-triangle text-danger"></i></p>
+            }
+            @case ('intangible') {
+                <p class="service-class card-intangible" title="intangible"><i class="bi bi-chevron-double-up text-danger"></i></p>
+            }
+            @case ('standard') {
+                <p class="service-class card-standard" title="standard"><i class="bi bi-chevron-up text-danger"></i></p>
+            }
+        }
+    }
+    
     <p class="card-assignee" title="assigned to"><i class="bi bi-person-circle text-success"></i> {{ card.assignedTo?.fullName }}</p>
 </div>

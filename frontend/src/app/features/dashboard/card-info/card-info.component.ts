@@ -68,7 +68,7 @@ export class CardInfoComponent implements OnInit {
         assignedTo: this.editCardForm.value.assigneeEmail,
         dueDate: this.editCardForm.value.dueDate,
         blocked: this.editCardForm.value.blocked,
-        classOfService: this.editCardForm.value.classOfService,
+        classOfService: Number(this.editCardForm.value.classOfService),
         type: this.editCardForm.value.type
       }
       console.log("Card alterado: ", data);
@@ -86,6 +86,15 @@ export class CardInfoComponent implements OnInit {
       });
       this.isEditing = !this.isEditing;
     }
+  }
+
+  getClassOfServiceNameById(id: number | undefined): string {
+    if (!id) {
+      return '';
+    }
+
+    const cos = this.classesOfService.find(c => c.id === id);
+    return cos?.serviceClass || '';
   }
 
 }

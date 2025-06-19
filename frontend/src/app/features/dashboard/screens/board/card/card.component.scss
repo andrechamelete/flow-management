@@ -41,7 +41,7 @@
     text-overflow: ellipsis;
 }
 
-.card-due-date, .card-assignee {
+.service-class, .card-assignee {
     text-align: right;
     align-self: end;
 }
@@ -51,11 +51,15 @@
     bottom: 0;
 }
 
-.card-due-date {
+.service-class {
     position: absolute;
     bottom: 3.5vh
 }
 
 p {
     font-size: 90%;
+}
+
+.card-expedite, .card-intangible, .card-standard, .bi-calendar2-x, .bi-person-circle {
+    font-size: 120%;
 }
