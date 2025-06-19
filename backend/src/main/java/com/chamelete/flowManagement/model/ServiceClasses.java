@@ -30,6 +30,12 @@ public class ServiceClasses {
 
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
-    private User createdBy; 
+    private User createdBy;
+
+    public ServiceClasses(Long id) {
+        Id = id;
+    } 
+
+    
     
 }

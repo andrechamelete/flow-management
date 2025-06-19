@@ -25,4 +25,6 @@ public interface CardsRepository extends JpaRepository<Cards, Long> {
 
     List<Cards> findByStage(Stage stage);
     
+    Cards findById(long id);
+    
 }

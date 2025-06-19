@@ -14,6 +14,8 @@ import com.chamelete.flowManagement.security.dto.BoardResponse;
 import com.chamelete.flowManagement.service.UserService;
 import com.chamelete.flowManagement.repository.CompaniesRepository;
 import com.chamelete.flowManagement.repository.FlowsRepository;
+import com.chamelete.flowManagement.repository.ServiceClassesRepository;
+import com.chamelete.flowManagement.model.ServiceClasses;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,19 +54,24 @@ public class BoardController {
     @Autowired 
     private final FlowsRepository flowsRepository;
 
+    @Autowired
+    private final ServiceClassesRepository serviceClassesRepository;
+
     public BoardController(
             UserService userService, 
             UserPermissionRepository userPermissionRepository,
             CardsRepository cardsRepository,
             StageRepository stageRepository,
             CompaniesRepository companyRepository,
-            FlowsRepository flowsRepository) {
+            FlowsRepository flowsRepository,
+            ServiceClassesRepository serviceClassesRepository) {
         this.userService = userService;
         this.userPermissionRepository = userPermissionRepository;
         this.cardsRepository = cardsRepository;
         this.stageRepository = stageRepository;
         this.companyRepository = companyRepository;
         this.flowsRepository = flowsRepository;
+        this.serviceClassesRepository = serviceClassesRepository;
     }
 
     @GetMapping
@@ -87,8 +94,9 @@ public class BoardController {
 
         List<Stage> stages = stageRepository.getStagesByFlow(flow);
         List<Cards> cards = cardsRepository.findByFlow(flow);
+        List<ServiceClasses> classOfService = serviceClassesRepository.findByCompany(company);
 
-        return ResponseEntity.ok(new BoardResponse(stages, cards));
+        return ResponseEntity.ok(new BoardResponse(stages, cards, classOfService));
     }
     
 }

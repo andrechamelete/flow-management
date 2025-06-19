@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,7 @@ import com.chamelete.flowManagement.repository.StageRepository;
 import com.chamelete.flowManagement.repository.UserPermissionRepository;
 import com.chamelete.flowManagement.repository.UserRepository;
 import com.chamelete.flowManagement.security.dto.CardRequest;
+import com.chamelete.flowManagement.security.dto.UpdateCardRequest;
 import com.chamelete.flowManagement.service.CompaniesService;
 
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*", allowCredentials = "true")
@@ -99,8 +102,6 @@ public class CardController {
         }
         int position = cardsRepository.findByStage(stage).size();
 
-
-
         Cards card = new Cards();
         card.setName(request.getName());
         card.setDescription(request.getDescription());
@@ -108,8 +109,8 @@ public class CardController {
         card.setDueDate(request.getDueDate());
         card.setCreatedAt(LocalDateTime.now());
         card.setAssignedTo(assignee);
-        //card.getClassOfService();
-        //card.getType();
+        card.setClassOfService(request.getClassOfService());
+        //card.setType();
         card.setBlocked(false);
         card.setFlow(flow);
         card.setStage(stage);
@@ -117,12 +118,64 @@ public class CardController {
 
         cardsRepository.save(card);
 
-
-        
         return ResponseEntity.ok(card);
     }
 
     //metodo patch para editar nome, description, position, blocked, due_date, stage, assigned_to, classOfService e type
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateCard(@PathVariable Long id, @RequestBody UpdateCardRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email).orElse(null);
+
+        Cards card = cardsRepository.findById(id).orElse(null);
+
+        if(card == null) {
+            return ResponseEntity.badRequest().body("Card not found");
+        }
+
+        Companies company = companiesService.findById(card.getFlow().getCompany().getId());
+
+        if (!userPermissionRepository.existsByUserAndCompany(user, company)) {
+            return ResponseEntity.badRequest().body("User does not have permission to create cards in this company.");
+        }
+
+        if(request.getName() != null) {
+            card.setName(request.getName());
+        }
+
+        if(request.getDescription() != null) {
+            card.setDescription(request.getDescription());
+        }
+
+        if(request.getDueDate() != null) {
+            card.setDueDate(request.getDueDate());
+        }
+
+        User assignee = userRepository.findByEmail(request.getAssignedTo()).orElse(null);
+        if(request.getAssignedTo() != null) {
+            if (userPermissionRepository.existsByUserAndCompany(assignee, company)) {
+                card.setAssignedTo(assignee);
+            } else {
+                return ResponseEntity.badRequest().body("Usuário sem permisão.");
+            }
+        } else {
+            return ResponseEntity.badRequest().body("usuario nulo.");
+        }
+
+        if(request.getClassOfService() != null) {
+            card.setClassOfService(request.getClassOfService());
+        }
+
+        if(request.getType() != null) {
+            card.setType(request.getType());
+        }
+
+        card.setBlocked(request.isBlocked());
+
+        cardsRepository.save(card);
+        return ResponseEntity.ok(card);
+    }
 
     //metodo delete para deletar card
     
