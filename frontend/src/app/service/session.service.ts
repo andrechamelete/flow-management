@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ClassOfService } from '../models/ClassOfService';
+import { BoardService } from './board.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +24,13 @@ export class SessionService {
   private company: string | null = null;
   private flow: string | null = null;
 
-  constructor() { 
+  constructor(private injector: Injector) { 
     this.token = localStorage.getItem(this.TOKEN_KEY);
     this.company = localStorage.getItem(this.COMPANY_KEY);
     this.flow = localStorage.getItem(this.FLOW_KEY);
+
+    this.companyIdSubject.next(this.company);
+    this.flowIdSubject.next(this.flow);
   }
 
   getToken(): string | null {
@@ -37,8 +41,13 @@ export class SessionService {
   }
 
   setToken(token: string): void {
+    const previousToken = this.token;
     this.token = token;
     localStorage.setItem(this.TOKEN_KEY, token);
+
+    if (previousToken && previousToken !== token) {
+      this.clearCompanyAndFlow();
+    }
   }
 
   clearToken(): void {
@@ -85,5 +94,17 @@ export class SessionService {
     localStorage.removeItem(this.FLOW_KEY);
     localStorage.removeItem(this.COMPANY_KEY);
     this.clearToken();
+
+    const boardService = this.injector.get(BoardService);
+    boardService.clearBoard();
+  }
+
+  clearCompanyAndFlow() {
+    this.company = null;
+    this.flow = null;
+    localStorage.removeItem(this.FLOW_KEY);
+    localStorage.removeItem(this.COMPANY_KEY);
+    this.companyIdSubject.next(null);
+    this.flowIdSubject.next(null);
   }
 }

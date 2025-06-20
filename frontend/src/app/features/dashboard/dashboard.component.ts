@@ -99,6 +99,7 @@ export class DashboardComponent implements OnInit {
       if(result) {
         this.companies.push(result);
         this.selectedCompany = result;
+        this.sessionService.setCompany(result.id.toString());
       }
     }).catch((reason) => {});
   }

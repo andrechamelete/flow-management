@@ -28,7 +28,7 @@ export class CardComponent implements OnInit {
   }
 
   openModalCard() {
-    console.log('teste', this.card.classOfService?.id)
+    console.log('classe de serviço: ', this.card.classOfService?.id)
     const modalRef = this.modalService.open(CardInfoComponent);
     modalRef.componentInstance.card$ = this.card;
     modalRef.componentInstance.onUpdate = (updatedCard: Card) => {

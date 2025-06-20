@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { SessionService } from '../../../service/session.service';
 import { HttpClient } from '@angular/common/http';
 import { ClassOfService } from '../../../models/ClassOfService';
+import { BoardService } from '../../../service/board.service';
 
 @Component({
   selector: 'app-card-info',
@@ -28,7 +29,8 @@ export class CardInfoComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private fb: FormBuilder,
     private sessionService: SessionService,
-    private http: HttpClient) {
+    private http: HttpClient,
+    private boardService: BoardService) {
       this.editCardForm = this.fb.group({
         name: ['', Validators.required],
         description: [''],
@@ -76,9 +78,8 @@ export class CardInfoComponent implements OnInit {
         next: (response) => {
           console.log('Card updated successfully', response);
           this.card$ = { ...this.card$, ...response};
-          if(this.onUpdate) {
-            this.onUpdate(this.card$);
-          }
+          this.boardService.updateCardLocal(this.card$);
+
         },
         error: (error) => {
           console.log('Error updating card', error);

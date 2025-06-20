@@ -91,7 +91,10 @@ export class StageComponent {
     const data = { newPosition };
     this.http.patch<Card>(`http://localhost:8080/board/card/reorder/${cardId}`, data)
       .subscribe({
-        next: (response) => console.log("Card reordered successfully", response),
+        next: (response) => {
+          console.log("Card reordered successfully", response),
+          this.boardService.updateCardLocal(response);
+        },
         error: (error) => console.error("Error reordering card", error)
     })
   }
@@ -100,7 +103,10 @@ export class StageComponent {
     const data = { targetStageId, newPosition };
     this.http.patch<Card>(`http://localhost:8080/board/card/move/${cardId}`, data)
       .subscribe({
-        next: (response) => console.log("Card moved successfully", response),
+        next: (response) => {
+          console.log("Card moved successfully", response),
+          this.boardService.updateCardLocal(response);
+        },
         error: (error) => console.error("Error moving card", error)
       })
   }
@@ -132,6 +138,7 @@ export class StageComponent {
     return this.http.patch<Stage>(`http://localhost:8080/board/stage/${this.stage.id}`, data).subscribe({
       next: (response) => {
         console.log("Stage updated successfully", response);
+        this.boardService.updateStageLocal(response);
       },
       error: (error) => {
         console.log("Error updating stage", error);
@@ -145,7 +152,7 @@ export class StageComponent {
     modalRef.componentInstance.stageId = this.stage.id;
     modalRef.result.then((newCard: Card) => {
       if (newCard) {
-        this.cardListing.push(newCard);
+        this.boardService.addCardLocal(newCard); //
       }
     },
     (reason) => {
@@ -156,7 +163,7 @@ export class StageComponent {
   onCardUpdated(updatedCard: Card) {
     const index = this.cardListing.findIndex(card => card.id === updatedCard.id);
     if (index !== -1) {
-      this.cardListing[index] = {...updatedCard}
+      this.boardService.updateCardLocal(updatedCard); //
     }
   }
 }

@@ -94,6 +94,7 @@ export class FlowsComponent implements OnInit {
       this.flows.push(newFlow);
       this.flows = this.flows.sort((a, b) => a.name.localeCompare(b.name));
       this.selectedFlow = newFlow;
+      this.sessionService.setFlow(newFlow.id.toString());
     }).catch((error) => {
       console.log('Modal dismissed', error);
     })

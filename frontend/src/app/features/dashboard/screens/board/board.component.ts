@@ -26,34 +26,11 @@ export class BoardComponent implements OnInit {
   flowId: String | null = null;
 
   ngOnInit(): void {
-    this.sessionService.companyChanges$.subscribe(companyId => {
-      this.selectedCompany = companyId;
-      this.stageList = [];
-      this.flowId = null;
-      this.tryLoadBoard();
-    });
-
-    this.sessionService.flowChanges$.subscribe(flow => {
-      this.flowId = flow;
-      this.tryLoadBoard();
-    });
+    this.boardService.stages$.subscribe(stages => this.stageList = stages);
+    this.boardService.cards$.subscribe(cards => this.cardList = cards);
+    this.boardService.classOfService$.subscribe(classes => this.classesOfServiceList = classes);
 
   }    
-
-  private tryLoadBoard() {
-    if (this.selectedCompany && this.flowId) {
-      console.log(this.stageList)
-      this.boardService.loadBoard(Number(this.selectedCompany), Number(this.flowId)).subscribe(board => {
-        this.stageList = board.stages.sort((a, b) => a.position - b.position);
-        console.log('Stages loaded by boardcomp:', this.stageList);
-        this.cardList = board.cards.sort((a, b) => a.position - b.position);
-        console.log('Cards loaded by boardcomp:', this.cardList);
-        this.classesOfServiceList = board.serviceClasses.sort((a, b) => a.id - b.id);
-        console.log('Classes of service loaded by boardcomp:', this.classesOfServiceList);
-        this.sessionService.setClassesOfService(board.serviceClasses);
-      });
-    }
-  }
 
   launchCreateStage() {
     console.log("launchCreateStage");
