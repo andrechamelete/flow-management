@@ -16,32 +16,29 @@
     <div class="modal-body">
         <ng-container *ngIf="isEditing; else bodyModal">
             <section class="container-fluid bg-body-tertiary p-3 border">
-                <div class="mb-3">
+                <div class="m-1">
                     <label for="description">Description&nbsp;</label>
                     <input id="description" type="text" formControlName="description" class="form-control form-control-sm" placeholder="{{card$.description}}" />
                 </div>
 
-                <div class="mb-3">
+                <div class="m-1">
                     <label for="assigneeEmail">Assigned&nbsp;to&nbsp;</label>
                     <input id="assigneeEmail" type="email" formControlName="assigneeEmail" class="form-control form-control-sm" placeholder="{{card$.assignedTo?.email}}">
                 </div>
             </section>
             <section class="container-fluid bg-body-tertiary p-3 border">
-                <div class="mb-3">
+                <div class="m-1">
                     <label for="assignedToEmail">Due&nbsp;date&nbsp;</label>
                     <input type="date" formControlName="dueDate" class="form-control form-control-sm" placeholder="{{card$.dueDate | date:'dd-MM-yyyy'}}">
                 </div>
-                <div class="form-check mb-3">
-                    <input type="checkbox" formControlName="blocked" class="form-check-input" placeholder="{{card$.blocked}}">
-                    <label class="form-check-label" for="blocked">
-                        Blocked
-                    </label> 
+                <div class="form-check m-1">    
+                    <input type="checkbox" formControlName="blocked" class="form-check-input" placeholder="{{card$.blocked}}">                
+                    <label class="form-check-label" for="blocked">&nbsp;Blocked</label>                     
                 </div>
-            </section>
-            <section class="container-fluid bg-body-tertiary p-3 border">
-                <div class="mb-3">
+
+                <div class="m-1">
                     <label for="classOfService">
-                        Class&nbsp;of&nbsp;Service
+                        Class&nbsp;of&nbsp;Service&nbsp;
                     </label>
                     <select formControlName="classOfService" class="form-control">
                         @for (class of classesOfService; track class.id) {
@@ -50,8 +47,11 @@
                         
                     </select>
                 </div>
+            </section>
+            <section class="container-fluid bg-body-tertiary p-3 border">
+                
 
-                <div class="mb-3">
+                <div class="m-1">
 
                     <label for="type">
                         Type
@@ -64,31 +64,31 @@
         
         <ng-template class="modal-body" #bodyModal>
             <section class="container-fluid bg-body-tertiary border p-3">
-                <div class="mb-3">
-                    <h5>Description:&nbsp; </h5><p>{{ card$.description}}</p>
+                <div class="m-1">
+                    <h5 class="m-0">Description:&nbsp; </h5><p class="m-0">{{ card$.description}}</p>
                 </div>    
-                <div class="mb-3">
-                    <h5>Assigned to:&nbsp; </h5><p>{{ card$.assignedTo?.email}}</p>
+                <div class="m-1">
+                    <h5 class="m-0">Assigned to:&nbsp; </h5><p class="m-0">{{ card$.assignedTo?.email}}</p>
                 </div>
             </section>
             <section class="container-fluid bg-body-tertiary border p-3">
-                <div class="mb-3">
-                    <h5>Due date:&nbsp; </h5><p>{{card$.dueDate | date: 'dd/MM/yy'}}</p>
+                <div class="m-1">
+                    <h5 class="m-0">Due date:&nbsp; </h5><p class="m-0">{{card$.dueDate | date: 'dd/MM/yy'}}</p>
                 </div>
-                <div class="mb-3">
-                    <h5>Blocked:&nbsp; </h5><p>{{card$.blocked ? "yes" : "no"}}</p>
+                <div class="m-1">
+                    <h5 class="m-0">Blocked:&nbsp; </h5><p class="m-0">{{card$.blocked ? "yes" : "no"}}</p>
                 </div>
-                <div class="mb-3">
-                    <h5>Class of service:&nbsp; </h5>
-                    <p>{{getClassOfServiceNameById(card$.classOfService?.id)}}</p>
+                <div class="m-1">
+                    <h5 class="m-0">Class of service:&nbsp; </h5>
+                    <p class="m-0">{{getClassOfServiceNameById(card$.classOfService?.id)}}</p>
                 </div>
             </section>
             <section class="container-fluid bg-body-tertiary border p-3">
-                <div class="mb-3">
-                    <h5>Type:&nbsp; </h5><p>{{card$.type}}</p>
+                <div class="m-1">
+                    <h5 class="m-0">Type:&nbsp; </h5><p class="m-0">{{card$.type}}</p>
                 </div>
-                <div class="mb-3">
-                    <h5>Created by:&nbsp; </h5><p>{{ card$.createdBy?.email}}</p> <h5>&nbsp; at: &nbsp;</h5><p>{{ (card$.createdAt | date: 'dd/MM/yy')}}</p>
+                <div class="m-1">
+                    <h5 class="m-0">Created by:&nbsp; </h5><p class="m-0">{{ card$.createdBy?.email}}</p> <h5 class="m-0">&nbsp; at: &nbsp;</h5><p class="m-0">{{ (card$.createdAt | date: 'dd/MM/yy')}}</p>
                 </div>
             </section>
         </ng-template>

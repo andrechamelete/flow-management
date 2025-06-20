@@ -49,6 +49,7 @@ export class StageComponent {
       // Movimento dentro da mesma stage
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
       
+      this.moveWithinStage(card.id, event.currentIndex)
       // Emitir evento para o componente pai com todos os cards afetados
       this.cardMoved.emit({
         type: 'same-stage',
@@ -70,6 +71,8 @@ export class StageComponent {
       
       // Atualizar o stage do card
       card.stage = this.stage;
+
+      this.moveToAnotherStage(card.id, this.stage.id, event.currentIndex)
       
       // Emitir evento para o componente pai
       this.cardMoved.emit({
@@ -82,6 +85,24 @@ export class StageComponent {
         newPosition: event.currentIndex
       });
     }
+  }
+
+  private moveWithinStage(cardId: number, newPosition: number) {
+    const data = { newPosition };
+    this.http.patch<Card>(`http://localhost:8080/board/card/reorder/${cardId}`, data)
+      .subscribe({
+        next: (response) => console.log("Card reordered successfully", response),
+        error: (error) => console.error("Error reordering card", error)
+    })
+  }
+
+  private moveToAnotherStage(cardId: number, targetStageId: number, newPosition: number) {
+    const data = { targetStageId, newPosition };
+    this.http.patch<Card>(`http://localhost:8080/board/card/move/${cardId}`, data)
+      .subscribe({
+        next: (response) => console.log("Card moved successfully", response),
+        error: (error) => console.error("Error moving card", error)
+      })
   }
 
   trackByCardId(index: number, card: Card) {
