@@ -4,7 +4,7 @@ role="button" tabindex="0"
 (click)="openModalCard()" 
 (keydown.enter)="openModalCard()"
 (keydown.space)="openModalCard()">
-    <h6 cdkDragHangle class="card-title">{{ card.name }}</h6>
+    <h6 cdkDragHangle class="card-title text-truncate">{{ card.name }}</h6>
     @if (card.classOfService?.serviceClass === 'fixed_date') {
         <p class="service-class card-due-date" title="due date"><i class="bi bi-calendar2-x text-danger"></i> {{ card.dueDate ? (card.dueDate | date: 'dd/MM/yy') : 'none'}}</p>
     } @else {

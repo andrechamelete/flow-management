@@ -47,10 +47,16 @@ p {
 .wip {
     text-align: center;
     margin-left: 8px;
+    font-weight: 500;
 }
 
 .above-wip-limit {
     background-color: rgb(255, 189, 189);
+}
+
+.above-wip {
+    color: rgb(255, 0, 0);
+    font-weight: 500;
 }
 
 .launchCreateCard {

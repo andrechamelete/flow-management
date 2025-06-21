@@ -1,6 +1,6 @@
 <div class="stage" CdkDrag>
     <div class="stage-header" CdkDragHandle>
-        <div class="wip">
+        <div class="wip" [ngClass]="{'above-wip': cardsInStage.length > stage.wipLimit}">
             <ng-container *ngIf="isEditing; else wipText">
                 <input type="number" [(ngModel)]="stage.wipLimit" min="0" class="form-control form-control-sm"/>
 

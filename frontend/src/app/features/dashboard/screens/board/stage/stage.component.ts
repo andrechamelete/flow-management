@@ -47,6 +47,9 @@ export class StageComponent {
     
     if (event.previousContainer === event.container) {
       // Movimento dentro da mesma stage
+      if (card.position === event.currentIndex) {
+        return console.log('Não houve mudança de posição do card', card.name);
+      }
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
       
       this.moveWithinStage(card.id, event.currentIndex)

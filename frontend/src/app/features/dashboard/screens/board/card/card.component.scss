@@ -31,16 +31,6 @@
     background-color: rgb(249, 224, 224);
 }
 
-.card-title {
-
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 .service-class, .card-assignee {
     text-align: right;
     align-self: end;
