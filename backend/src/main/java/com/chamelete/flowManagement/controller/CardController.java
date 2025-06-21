@@ -16,11 +16,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.chamelete.flowManagement.model.Cards;
 import com.chamelete.flowManagement.model.Companies;
+import com.chamelete.flowManagement.model.CycleTime;
 import com.chamelete.flowManagement.model.Flows;
 import com.chamelete.flowManagement.model.ServiceClasses;
 import com.chamelete.flowManagement.model.Stage;
 import com.chamelete.flowManagement.model.User;
 import com.chamelete.flowManagement.repository.CardsRepository;
+import com.chamelete.flowManagement.repository.CycleTimeRepository;
 import com.chamelete.flowManagement.repository.FlowsRepository;
 import com.chamelete.flowManagement.repository.ServiceClassesRepository;
 import com.chamelete.flowManagement.repository.StageRepository;
@@ -56,6 +58,9 @@ public class CardController {
     @Autowired
     private ServiceClassesRepository serviceClassesRepository;
 
+    @Autowired
+    private CycleTimeRepository cycleTimeRepository;
+
 
     public CardController(UserRepository userRepository, 
                         UserPermissionRepository userPermissionRepository, 
@@ -63,7 +68,8 @@ public class CardController {
                         FlowsRepository flowsRepository,
                         StageRepository stageRepository,
                         CardsRepository cardsRepository,
-                        ServiceClassesRepository serviceClassesRepository) {
+                        ServiceClassesRepository serviceClassesRepository,
+                        CycleTimeRepository cycleTimeRepository) {
         this.userRepository = userRepository;
         this.userPermissionRepository = userPermissionRepository;
         this.companiesService = companiesService;
@@ -71,6 +77,7 @@ public class CardController {
         this.stageRepository = stageRepository;
         this.cardsRepository = cardsRepository;
         this.serviceClassesRepository = serviceClassesRepository;
+        this.cycleTimeRepository = cycleTimeRepository;
     }
 
     //metodo post para criar card
@@ -124,7 +131,14 @@ public class CardController {
         card.setStage(stage);
         card.setCreatedBy(user);
 
+        CycleTime cycleTime = new CycleTime();
+        cycleTime.setFlow(flow);
+        cycleTime.setStage(stage);
+        cycleTime.setCard(card);
+        cycleTime.setCreatedAt(LocalDateTime.now());
+        
         cardsRepository.save(card);
+        cycleTimeRepository.save(cycleTime);        
 
         return ResponseEntity.ok(card);
     }
@@ -170,14 +184,12 @@ public class CardController {
         } else {
             return ResponseEntity.badRequest().body("usuario nulo.");
         }
-
-        Long classOfServiceId = request.getClassOfService();
-        ServiceClasses classOfService = serviceClassesRepository.findById(classOfServiceId).orElse(null);
-
         if(request.getClassOfService() != null) {
+            Long classOfServiceId = request.getClassOfService();
+            ServiceClasses classOfService = serviceClassesRepository.findById(classOfServiceId).orElse(null);
             card.setClassOfService(classOfService);
         }
-
+        
         if(request.getType() != null) {
             card.setType(request.getType());
         }

@@ -1,5 +1,6 @@
 package com.chamelete.flowManagement.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.chamelete.flowManagement.model.Cards;
+import com.chamelete.flowManagement.model.CycleTime;
+import com.chamelete.flowManagement.model.Flows;
 import com.chamelete.flowManagement.model.Stage;
 
 import com.chamelete.flowManagement.repository.CardsRepository;
+import com.chamelete.flowManagement.repository.CycleTimeRepository;
 import com.chamelete.flowManagement.repository.StageRepository;
 import com.chamelete.flowManagement.security.dto.CardMoveRequest;
 //import com.chamelete.flowManagement.repository.UserRepository;
@@ -28,8 +32,13 @@ public class CardMoveController {
     @Autowired
     private StageRepository stageRepository;
 
-    public CardMoveController(CardsRepository cardsRepository) {
+    @Autowired
+    private CycleTimeRepository cycleTimeRepository;
+
+    public CardMoveController(CardsRepository cardsRepository, StageRepository stageRepository, CycleTimeRepository cycleTimeRepository) {
         this.cardsRepository = cardsRepository;
+        this.stageRepository = stageRepository;
+        this.cycleTimeRepository = cycleTimeRepository;
 
     }
 
@@ -63,7 +72,7 @@ public class CardMoveController {
                 }
             }
         } else {
-            return ResponseEntity.badRequest().body("new position is the same as the previous position");
+            return ResponseEntity.ok().body("new position is the same as the previous position");
         }
 
         card.setPosition(newPosition);
@@ -92,6 +101,7 @@ public class CardMoveController {
 
         List<Cards> previousStageCards = cardsRepository.findByStage(previousStage);
         List<Cards> targetStageCards = cardsRepository.findByStage(targetStage);
+        Flows flow = card.getFlow();
 
         for (Cards c: previousStageCards) {
             if (c.getPosition() > previousPosition) {
@@ -107,9 +117,45 @@ public class CardMoveController {
             }
         }
 
+        if (targetStage.isDone()) {
+            card.setFinishedAt(LocalDateTime.now());
+        }
+
         card.setStage(targetStage);
         card.setPosition(newPosition);
         cardsRepository.save(card);
+        
+        CycleTime cycleTimePreviousStage = cycleTimeRepository.findByCardAndStage(card, previousStage);
+        
+        //implementar lógica para quando o card é movido pulando stages 
+        //(da stage.position 1 para a stage.position 3)
+        //(da stage.position 10 pra stage.position 7)
+        if (previousStage.getPosition() > targetStage.getPosition()) {
+            if (!previousStage.isDone()) {
+                cycleTimeRepository.delete(cycleTimePreviousStage);
+            }
+            
+            CycleTime cycleTimeTargetStage = cycleTimeRepository.findByCardAndStage(card, targetStage);                      
+            cycleTimeTargetStage.setFinishedAt(null);
+            cycleTimeRepository.save(cycleTimeTargetStage);
+        }
+
+        if (previousStage.getPosition() < targetStage.getPosition()) {
+            cycleTimePreviousStage.setFinishedAt(LocalDateTime.now());
+            cycleTimeRepository.save(cycleTimePreviousStage);
+
+            if (!targetStage.isDone()) {
+                CycleTime cycleTimeTargetStage = new CycleTime();
+                cycleTimeTargetStage.setCard(card);
+                cycleTimeTargetStage.setStage(targetStage);
+                cycleTimeTargetStage.setFlow(flow);
+                cycleTimeTargetStage.setCreatedAt(LocalDateTime.now());
+                cycleTimeRepository.save(cycleTimeTargetStage);
+            }
+            
+        }
+        
+        
 
         return ResponseEntity.ok(card);
     }
