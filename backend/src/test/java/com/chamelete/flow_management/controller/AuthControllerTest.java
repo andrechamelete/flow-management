@@ -5,14 +5,14 @@ import com.chamelete.flowManagement.model.User;
 import com.chamelete.flowManagement.security.JwtUtil;
 import com.chamelete.flowManagement.security.UserDetailsImpl;
 import com.chamelete.flowManagement.security.dto.AuthRequest;
-import com.chamelete.flowManagement.security.dto.AuthResponse;
+//import com.chamelete.flowManagement.security.dto.AuthResponse;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 
@@ -61,10 +61,12 @@ public class AuthControllerTest {
         when(jwtUtil.generateToken(userDetailsImpl))
             .thenReturn("fake-jwt-token");
 
-        AuthResponse authResponse = authController.login(authRequest);
+        //AuthResponse authResponse = authController.login(authRequest);
 
-        assertNotNull(authResponse);
-        assertEquals("fake-jwt-token", authResponse.getToken());
+        ResponseEntity<?> response = authController.login(authRequest);
+
+        assertNotNull(response);
+        assertEquals("fake-jwt-token", response.getBody());
     }
 
     @Test

@@ -7,11 +7,13 @@ import static org.mockito.Mockito.*;
 
 import java.util.Optional;
 
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.mockito.Mock;
 
@@ -20,7 +22,7 @@ import com.chamelete.flowManagement.model.User;
 import com.chamelete.flowManagement.repository.UserRepository;
 import com.chamelete.flowManagement.security.JwtUtil;
 import com.chamelete.flowManagement.security.UserDetailsImpl;
-import com.chamelete.flowManagement.security.dto.AuthResponse;
+
 import com.chamelete.flowManagement.security.dto.RegisterRequest;
 
 @ExtendWith(MockitoExtension.class)
@@ -68,7 +70,8 @@ public class AuthRegisterControllerTest {
         when(jwtUtil.generateToken(any(UserDetailsImpl.class)))
             .thenReturn("fake-jwt-token");
 
-        AuthResponse response = authRegisterController.register(registerRequest);
+
+        ResponseEntity<?> response = authRegisterController.register(registerRequest);
         
         verify(userRepository).save(userCaptor.capture());
         User savedUser = userCaptor.getValue();
@@ -77,6 +80,6 @@ public class AuthRegisterControllerTest {
         assertEquals("andre@chamelete.com", savedUser.getEmail());
         assertEquals("hashedPassword", savedUser.getPassword());
         assertNotNull(registerRequest);
-        assertEquals("fake-jwt-token", response.getToken());
+        assertEquals("fake-jwt-token", response.getBody());
     }    
 }

@@ -2,11 +2,13 @@ package com.chamelete.flowManagement.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chamelete.flowManagement.model.CardType;
 import com.chamelete.flowManagement.model.Cards;
 import com.chamelete.flowManagement.model.Companies;
 import com.chamelete.flowManagement.model.Flows;
 import com.chamelete.flowManagement.model.Stage;
 import com.chamelete.flowManagement.model.User;
+import com.chamelete.flowManagement.repository.CardTypeRepository;
 import com.chamelete.flowManagement.repository.CardsRepository;
 import com.chamelete.flowManagement.repository.StageRepository;
 import com.chamelete.flowManagement.repository.UserPermissionRepository;
@@ -57,6 +59,9 @@ public class BoardController {
     @Autowired
     private final ServiceClassesRepository serviceClassesRepository;
 
+    @Autowired
+    private final CardTypeRepository cardTypeRepository;
+
     public BoardController(
             UserService userService, 
             UserPermissionRepository userPermissionRepository,
@@ -64,7 +69,8 @@ public class BoardController {
             StageRepository stageRepository,
             CompaniesRepository companyRepository,
             FlowsRepository flowsRepository,
-            ServiceClassesRepository serviceClassesRepository) {
+            ServiceClassesRepository serviceClassesRepository,
+            CardTypeRepository cardTypeRepository) {
         this.userService = userService;
         this.userPermissionRepository = userPermissionRepository;
         this.cardsRepository = cardsRepository;
@@ -72,6 +78,7 @@ public class BoardController {
         this.companyRepository = companyRepository;
         this.flowsRepository = flowsRepository;
         this.serviceClassesRepository = serviceClassesRepository;
+        this.cardTypeRepository = cardTypeRepository;
     }
 
     @GetMapping
@@ -95,8 +102,9 @@ public class BoardController {
         List<Stage> stages = stageRepository.getStagesByFlow(flow);
         List<Cards> cards = cardsRepository.findByFlow(flow);
         List<ServiceClasses> classOfService = serviceClassesRepository.findByCompany(company);
+        List<CardType> cardTypes = cardTypeRepository.findByCompany(company);
 
-        return ResponseEntity.ok(new BoardResponse(stages, cards, classOfService));
+        return ResponseEntity.ok(new BoardResponse(stages, cards, classOfService, cardTypes));
     }
     
 }

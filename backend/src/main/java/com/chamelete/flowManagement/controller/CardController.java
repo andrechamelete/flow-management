@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.chamelete.flowManagement.model.CardType;
 import com.chamelete.flowManagement.model.Cards;
 import com.chamelete.flowManagement.model.Companies;
 import com.chamelete.flowManagement.model.CycleTime;
@@ -21,6 +22,7 @@ import com.chamelete.flowManagement.model.Flows;
 import com.chamelete.flowManagement.model.ServiceClasses;
 import com.chamelete.flowManagement.model.Stage;
 import com.chamelete.flowManagement.model.User;
+import com.chamelete.flowManagement.repository.CardTypeRepository;
 import com.chamelete.flowManagement.repository.CardsRepository;
 import com.chamelete.flowManagement.repository.CycleTimeRepository;
 import com.chamelete.flowManagement.repository.FlowsRepository;
@@ -61,6 +63,9 @@ public class CardController {
     @Autowired
     private CycleTimeRepository cycleTimeRepository;
 
+    @Autowired
+    private CardTypeRepository cardTypeRepository;
+
 
     public CardController(UserRepository userRepository, 
                         UserPermissionRepository userPermissionRepository, 
@@ -69,7 +74,8 @@ public class CardController {
                         StageRepository stageRepository,
                         CardsRepository cardsRepository,
                         ServiceClassesRepository serviceClassesRepository,
-                        CycleTimeRepository cycleTimeRepository) {
+                        CycleTimeRepository cycleTimeRepository,
+                        CardTypeRepository cardTypeRepository) {
         this.userRepository = userRepository;
         this.userPermissionRepository = userPermissionRepository;
         this.companiesService = companiesService;
@@ -78,6 +84,7 @@ public class CardController {
         this.cardsRepository = cardsRepository;
         this.serviceClassesRepository = serviceClassesRepository;
         this.cycleTimeRepository = cycleTimeRepository;
+        this.cardTypeRepository = cardTypeRepository;
     }
 
     //metodo post para criar card
@@ -191,7 +198,9 @@ public class CardController {
         }
         
         if(request.getType() != null) {
-            card.setType(request.getType());
+            Long cardTypeId = request.getType();;
+            CardType cardType = cardTypeRepository.findById(cardTypeId).orElse(null);
+            card.setType(cardType);
         }
 
         card.setBlocked(request.isBlocked());

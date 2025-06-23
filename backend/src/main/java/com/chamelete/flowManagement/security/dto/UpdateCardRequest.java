@@ -2,8 +2,6 @@ package com.chamelete.flowManagement.security.dto;
 
 import java.time.LocalDate;
 
-import com.chamelete.flowManagement.model.CardType;
-//import com.chamelete.flowManagement.model.ServiceClasses;
 
 public class UpdateCardRequest {
 
@@ -12,7 +10,7 @@ public class UpdateCardRequest {
     private LocalDate dueDate;
     private String assignedTo;
     private Long classOfService;
-    private CardType type;
+    private Long type;
     private boolean blocked;
     
     public UpdateCardRequest() {
@@ -58,11 +56,11 @@ public class UpdateCardRequest {
         this.classOfService = classOfService;
     }
 
-    public CardType getType() {
+    public Long getType() {
         return type;
     }
 
-    public void setType(CardType type) {
+    public void setType(Long type) {
         this.type = type;
     }
 
