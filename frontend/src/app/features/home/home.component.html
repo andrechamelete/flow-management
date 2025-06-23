@@ -15,16 +15,24 @@
         <div class="tab-content">
             <form *ngIf="activeTab === 'login'" [formGroup]="loginForm" (ngSubmit)="onLogin()">
                 <input type="email" placeholder="Email" formControlName="email" />
-                <input type="password" placeholder="Password" formControlName="password" />
-                <button type="submit" [disabled]="loginForm.invalid">Login</button>
+                <div class="password">
+                    <input [type]="showPassword ? 'text' : 'password'" placeholder="Password" formControlName="password" />
+                    <i [ngClass]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'" (click)="showPassword = !showPassword"></i>
+                </div>                
+                <button type="submit" [disabled]="loginForm.invalid">Login</button> <br>
+                <span class="error">{{loginErr}}</span>
             </form>      
         
             <form *ngIf="activeTab === 'register'" [formGroup]="registerForm" (ngSubmit)="onRegister()">
-
                 <input type="text" placeholder="Username" formControlName="fullName" />
                 <input type="email" placeholder="E-mail" formControlName="email" />
-                <input type="password" placeholder="Password" formControlName="password">
+                <div class="password">
+                    <input [type]="showPassword ? 'text' : 'password'" placeholder="Password" formControlName="password">
+                    <i [ngClass]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'" (click)="showPassword = !showPassword"></i>
+                </div>
+                
                 <button type="submit" [disabled]="registerForm.invalid">Register</button>
+                <p class="error">{{registerErr}}</p>
             </form>
         </div>
     </div>

@@ -27,13 +27,25 @@
         <ng-template #rt let-r="result" let-t="term">
         <div class="dropdown-item">{{ r.name }}</div>
         </ng-template>
-    </div>    
+    </div>   
 
     <app-flows></app-flows>
+
+    <button class="view btn btn-outline-secondary" type="button" title="Change view" (click)="changeScreen()">
+        @if (!view) {
+            <i class="bi bi-graph-up">&nbsp;Metrics</i>
+        } @else if (view) {
+            <i class="bi bi-kanban">&nbsp;Board</i>
+        }
+        
+    </button>
+
+    
 
     <button class="btn btn-outline-danger" type="button" title="Log out" (click)="logOut()">
         <i class="bi bi-door-closed-fill"></i>
     </button>
 </div>
 
-<app-board></app-board>
+<app-board *ngIf="!view" ></app-board>
+<app-metrics *ngIf="view"></app-metrics>

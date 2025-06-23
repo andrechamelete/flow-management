@@ -27,8 +27,11 @@
                 <h6>{{card.name}}</h6>
             </div>
         </app-card>
-        <button class="btn btn-sm btn-info launchCreateCard" title="Add a card" (click)="launchCreateCard()">
-            <i class="bi bi-plus-square-fill"></i>
-        </button>
+        @if (stage.position === 0) {
+            <button class="btn btn-sm btn-info launchCreateCard" title="Add a card" (click)="launchCreateCard()">
+                <i class="bi bi-plus-square-fill"></i>
+            </button>            
+        }
+
     </div>
 </div>

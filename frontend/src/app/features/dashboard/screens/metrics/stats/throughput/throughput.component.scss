@@ -1,0 +1,23 @@
+.throughput {
+    background-color: rgba(50, 52, 51, 0.882);
+    color: white;
+    justify-items: center;
+    width: 15vw;
+    border-radius: 5px;
+    padding: 1px;
+}
+
+.units, .info {
+    margin-bottom: 0px;
+}
+
+.label, .units {
+    font-size: small;
+}
+
+.visor {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

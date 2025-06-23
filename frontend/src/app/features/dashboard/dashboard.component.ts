@@ -13,13 +13,14 @@ import { Router } from '@angular/router';
 import { CompanyPermissionComponent } from './company-permission/company-permission.component';
 import { FlowsComponent } from './flows/flows.component';
 import { BoardComponent } from './screens/board/board.component';
+import { MetricsComponent } from "./screens/metrics/metrics.component";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   standalone: true,
-  imports: [CommonModule, NgbTypeaheadModule, FormsModule, NgbModule, FlowsComponent, BoardComponent]
+  imports: [CommonModule, NgbTypeaheadModule, FormsModule, NgbModule, FlowsComponent, BoardComponent, MetricsComponent]
 })
 
 export class DashboardComponent implements OnInit {
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit {
   loading: boolean = true;
   errorMessage: string | null = null;
   selectedCompany: Company | null = null;
+  view: boolean = false;
 
   constructor(
     private companyService: CompanyService, 
@@ -112,5 +114,9 @@ export class DashboardComponent implements OnInit {
   logOut(): void {
     this.sessionService.clearSession();
     this.router.navigate(['/home'])
+  }
+
+  changeScreen() {
+    this.view = !this.view;
   }
 }

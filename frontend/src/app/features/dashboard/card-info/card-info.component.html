@@ -43,8 +43,7 @@
                     <select formControlName="classOfService" class="form-control">
                         @for (class of classesOfService; track class.id) {
                             <option [value]="class.id">{{class.serviceClass}}</option>
-                        }
-                        
+                        }                        
                     </select>
                 </div>
             </section>
@@ -56,7 +55,10 @@
                     <label for="type">
                         Type
                     </label>
-                    <select formControlName="type">                    
+                    <select formControlName="type" class="form-control">
+                        @for (t of cardTypes; track t.id) {
+                            <option [value]="t.id">{{t.cardType}}</option>
+                        }                 
                     </select>
                 </div>        
             </section>
@@ -85,7 +87,7 @@
             </section>
             <section class="container-fluid bg-body-tertiary border p-3">
                 <div class="m-1">
-                    <h5 class="m-0">Type:&nbsp; </h5><p class="m-0">{{card$.type}}</p>
+                    <h5 class="m-0">Type:&nbsp; </h5><p class="m-0">{{card$.type?.cardType}}</p>
                 </div>
                 <div class="m-1">
                     <h5 class="m-0">Created by:&nbsp; </h5><p class="m-0">{{ card$.createdBy?.email}}</p> <h5 class="m-0">&nbsp; at: &nbsp;</h5><p class="m-0">{{ (card$.createdAt | date: 'dd/MM/yy')}}</p>

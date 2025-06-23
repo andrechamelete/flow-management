@@ -51,15 +51,14 @@ h1 {
 
 .tab-content {
     border: 1px solid #000000;
-    height: 38vh;
+    height: fit-content;
     padding: 2%;
     border-radius: 10px;
     border-top-left-radius: 0px;
-
 }
 
 .tab-content form {
-    height: 10vh;
+    height: auto;
 }
 .tab-content button {
     padding: 10px;
@@ -71,7 +70,7 @@ h1 {
 
 input {
     display: block;
-    margin: 10px auto;
+    margin: 10px auto 0;
     width: 80%;
     padding: 10px;
 }
@@ -82,3 +81,19 @@ button[type="submit"] {
     width: 80%;
 }
 
+.password {
+    position: relative;
+}
+
+.password i {
+    position: absolute;
+    right: 14%;
+    top: 50%;
+    transform: translateY(-50%); cursor: pointer;
+}
+
+.error {
+    color: red;
+    width: fit-content;
+    margin: 0 auto;
+}

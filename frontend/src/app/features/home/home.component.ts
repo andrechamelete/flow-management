@@ -16,6 +16,9 @@ export class HomeComponent {
 
   loginForm: FormGroup;
   registerForm: FormGroup;
+  showPassword: boolean = false;
+  loginErr: string = '';
+  registerErr: string = '';
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private sessionService: SessionService) {
     this.loginForm = this.fb.group({
@@ -45,6 +48,7 @@ export class HomeComponent {
             this.router.navigate(['/dashboard']);
           },
           error: (error) => {
+            this.loginErr = error.error;
             console.log('Login failed: ', error)
           }
         })
@@ -61,6 +65,7 @@ export class HomeComponent {
             this.router.navigate(['/dashboard']);
           },
           error: (error) => {
+            this.registerErr = error.error;
             console.log('Register failed: ', error)
           }
         })

@@ -36,6 +36,14 @@
     align-self: end;
 }
 
+.type {
+    position: absolute;
+    align-self: end;
+    top: 1vh;
+    font-size: 120%;
+    color: rgb(0, 3, 174);
+}
+
 .card-assignee {
     position: absolute;
     bottom: 0;
@@ -52,4 +60,8 @@ p {
 
 .card-expedite, .card-intangible, .card-standard, .bi-calendar2-x, .bi-person-circle {
     font-size: 120%;
+}
+
+.card-title {
+    width: 90%;
 }

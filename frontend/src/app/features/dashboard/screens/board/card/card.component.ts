@@ -5,6 +5,8 @@ import { CardInfoComponent } from '../../../card-info/card-info.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClassOfService } from '../../../../../models/ClassOfService';
 import { SessionService } from '../../../../../service/session.service';
+import { CardType } from '../../../../../models/CardType';
+import { BoardService } from '../../../../../service/board.service';
 
 @Component({
   standalone: true,
@@ -18,30 +20,28 @@ export class CardComponent implements OnInit {
   @Input() card!: Card;
   @Output() cardUpdated = new EventEmitter<Card>();
   classesOfService: ClassOfService[] = [];
+  cardTypes: CardType[] = [];
 
-  constructor(private modalService: NgbModal, private sessionService: SessionService) {}
+  constructor(private modalService: NgbModal, private sessionService: SessionService, private boardService: BoardService) { }
 
   ngOnInit() {
-    this.sessionService.classesOfServiceChanges$.subscribe(data => {
+    this.boardService.classOfService$.subscribe(data => {
       this.classesOfService = data;
+    })
+
+    this.boardService.cardType$.subscribe(data => {
+      this.cardTypes = data;
     })
   }
 
   openModalCard() {
-    console.log('classe de serviço: ', this.card.classOfService?.id)
+    console.log('classe de serviço: ', this.card.classOfService?.id);
+    console.log('types: ', this.cardTypes);
     const modalRef = this.modalService.open(CardInfoComponent);
     modalRef.componentInstance.card$ = this.card;
     modalRef.componentInstance.onUpdate = (updatedCard: Card) => {
       Object.assign(this.card, updatedCard);
     }
   }
-/*
-  getClassOfServiceNameById(id: number | undefined): string {
-    if (!id) {
-      return '';
-    }
-    const cos = this.classesOfService.find(c => c.id === id);
-    return cos?.serviceClass || '';
-  }
-*/
+
 }

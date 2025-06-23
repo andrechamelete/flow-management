@@ -22,4 +22,13 @@ role="button" tabindex="0"
     }
     
     <p class="card-assignee" title="assigned to"><i class="bi bi-person-circle text-success"></i> {{ card.assignedTo?.fullName }}</p>
+    @switch (card.type?.cardType) {
+        @case ('Bug') { <i class="type bi bi-bug" title="Bug"></i> }
+        @case ('Epic') { <i class="type bi bi-building" title="Epic"></i> }
+        @case ('Story') { <i class="type bi bi-sign-turn-slight-right" title="Story"></i> }
+        @case ('Task') { <i class="type bi bi-list-task" title="Task"></i> }
+        @case ('Kaizen') { <i class="type bi bi-hand-thumbs-up" title="Kaizen"></i> }
+        @default {}
+    }
+    <i></i>
 </div>

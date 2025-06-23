@@ -10,11 +10,11 @@ export class SessionService {
 
   private companyIdSubject = new BehaviorSubject<String | null>(this.getCompany())
   private flowIdSubject = new BehaviorSubject<String | null>(this.getFlow())
-  private classesOfServiceSubject = new BehaviorSubject<ClassOfService[]>([]);
+  //private classesOfServiceSubject = new BehaviorSubject<ClassOfService[]>([]);
 
   companyChanges$ = this.companyIdSubject.asObservable();
   flowChanges$ = this.flowIdSubject.asObservable();
-  classesOfServiceChanges$ = this.classesOfServiceSubject.asObservable();
+  //classesOfServiceChanges$ = this.classesOfServiceSubject.asObservable();
 
   private readonly TOKEN_KEY = 'token';
   private readonly COMPANY_KEY = 'company';
@@ -82,11 +82,11 @@ export class SessionService {
     localStorage.setItem(this.FLOW_KEY, value);
     this.flowIdSubject.next(value);
   }
-
+/*
   setClassesOfService(list: ClassOfService[]) {
     this.classesOfServiceSubject.next(list);
     console.log('sessionService classes of service: ', this.classesOfServiceSubject.value);
-  }
+  } */
 
   clearSession() {
     this.company = null;

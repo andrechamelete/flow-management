@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { BoardData } from '../models/boardData';
 import { ClassOfService } from '../models/ClassOfService';
 import { SessionService } from './session.service';
+import { CardType } from '../models/CardType';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,12 @@ export class BoardService {
   private stagesSubject = new BehaviorSubject<Stage[]>([]);
   private cardsSubject = new BehaviorSubject<Card[]>([]);
   private classOfServiceSubject = new BehaviorSubject<ClassOfService[]>([]);
+  private CardTypeSubject = new BehaviorSubject<CardType[]>([]);
 
   stages$ = this.stagesSubject.asObservable();
   cards$ = this.cardsSubject.asObservable();
   classOfService$ = this.classOfServiceSubject.asObservable();
+  cardType$ = this.CardTypeSubject.asObservable();
 
   constructor(private http: HttpClient, private sessionService: SessionService) {
     this.sessionService.companyChanges$.subscribe(company => this.tryLoadBoard());
@@ -40,7 +43,8 @@ export class BoardService {
         this.stagesSubject.next(response.stages.sort((a,b ) => a.position - b.position));
         this.cardsSubject.next(response.cards.sort((a, b) => a.position - b.position));
         this.classOfServiceSubject.next(response.serviceClasses);
-        this.sessionService.setClassesOfService(response.serviceClasses);
+        this.CardTypeSubject.next(response.cardTypes);
+
       }))
   }
 
@@ -63,5 +67,6 @@ export class BoardService {
     this.stagesSubject.next([]);
     this.cardsSubject.next([]);
     this.classOfServiceSubject.next([]);
+    this.CardTypeSubject.next([]);
   }
 }
