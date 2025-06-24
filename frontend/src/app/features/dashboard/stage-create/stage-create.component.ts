@@ -23,7 +23,7 @@ export class StageCreateComponent {
     this.stageForm = this.fb.group({
       name: ['', Validators.required],
       wipLimit: [''],
-      done: []
+      type: ['', Validators.required]
     })
   }
 
@@ -34,9 +34,10 @@ export class StageCreateComponent {
         companyId: Number(this.sessionService.getCompany()),
         flowId: Number(this.sessionService.getFlow()),
         wipLimit: this.stageForm.value.wipLimit,
-        done: this.stageForm.value.done
+        type: this.stageForm.value.type
 
       }
+      console.log(data)
       this.http.post<Stage>('http://localhost:8080/board/stage', data).subscribe({
         next: (response) => {
           console.log('Stage created successfully', response);

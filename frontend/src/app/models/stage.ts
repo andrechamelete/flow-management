@@ -6,5 +6,5 @@ export interface Stage {
     flow: Flow;
     position: number;
     wipLimit: number;
-    done: boolean;
+    type: String;
 }
