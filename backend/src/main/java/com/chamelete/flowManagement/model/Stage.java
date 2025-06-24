@@ -31,8 +31,8 @@ public class Stage {
     @Column(name = "position", nullable = false)
     private int position;
 
-    @Column(name = "done", nullable = false)
-    private boolean done;
+    @Column(name = "type", nullable = false)
+    private String type;
     //trocar o atributo done para type, podendo ser work, line ou done. tipo String
     
     @Column(name = "wip_limit", nullable = true)

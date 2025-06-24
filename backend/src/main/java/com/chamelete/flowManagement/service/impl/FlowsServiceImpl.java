@@ -68,19 +68,19 @@ public class FlowsServiceImpl implements FlowsService {
         toDo.setFlow(flow);
         toDo.setName("ToDo");
         toDo.setPosition(0);
-        toDo.setDone(false);
+        toDo.setType("queue");
 
         Stage doing = new Stage();        
         doing.setFlow(flow);
         doing.setName("Doing");
         doing.setPosition(1);
-        doing.setDone(false);
+        doing.setType("process");
 
         Stage done = new Stage();
         done.setFlow(flow);
         done.setName("Done");
         done.setPosition(2);
-        done.setDone(true); 
+        done.setType("done"); 
 
         stageService.createStage(toDo);
         stageService.createStage(doing);

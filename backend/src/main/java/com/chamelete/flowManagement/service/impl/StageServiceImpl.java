@@ -26,12 +26,12 @@ public class StageServiceImpl implements StageService {
     }
 
     @Override
-    public Stage createStage(Flows flow, String name, int position, boolean done) {
+    public Stage createStage(Flows flow, String name, int position, String type) {
         Stage stage = new Stage();
         stage.setFlow(flow);
         stage.setName(name);
         stage.setPosition(position);
-        stage.setDone(done);
+        stage.setType(type);
         return stageRepository.save(stage);
     }
 

@@ -28,7 +28,7 @@ public class MetricsServiceImpl implements MetricsService {
         List<Cards> cardList = new ArrayList<>();
 
         for (Cards card: cards) {
-            if(card.getStage().isDone()) {
+            if(card.getStage().getType() == "done") {
                 cardList.add(card);
             }
         }
@@ -38,7 +38,7 @@ public class MetricsServiceImpl implements MetricsService {
     @Override
     public List<Cards> getCardsByDoneInRange (Flows flow, LocalDateTime startDate, LocalDateTime endDate) {
         List<Cards> cards = cardsRepository.findByFlow(flow);
-        cards.removeIf(card -> !card.getStage().isDone());
+        cards.removeIf(card -> card.getStage().getType() != "done");
         cards.removeIf(card -> !card.getFinishedAt().isAfter(startDate));
         cards.removeIf(card -> !card.getFinishedAt().isBefore(endDate));
 

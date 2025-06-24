@@ -13,5 +13,7 @@ public interface CycleTimeRepository extends JpaRepository<CycleTime, Long> {
 
     CycleTime findByCardAndStage(Cards card, Stage stage);
 
+    CycleTime findByFlowAndStage(Flows flow, Stage stage);
+
     
 }

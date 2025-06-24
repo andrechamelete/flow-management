@@ -84,7 +84,7 @@ public class StageController {
         stage.setFlow(flow);
         stage.setName(stageRequest.getName());
         stage.setPosition(stageRepository.getStagesByFlow(flow).size());
-        stage.setDone(stageRequest.isDone());
+        stage.setType(stageRequest.getType());
         stage.setWipLimit(stageRequest.getWipLimit());
 
         stageRepository.save(stage);

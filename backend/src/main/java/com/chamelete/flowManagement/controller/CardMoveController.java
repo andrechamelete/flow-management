@@ -117,7 +117,7 @@ public class CardMoveController {
             }
         }
 
-        if (targetStage.isDone()) {
+        if (targetStage.getType() == "done") {
             card.setFinishedAt(LocalDateTime.now());
         }
 
@@ -127,12 +127,17 @@ public class CardMoveController {
         
         CycleTime cycleTimePreviousStage = cycleTimeRepository.findByCardAndStage(card, previousStage);
         
-        //implementar lógica para quando o card é movido pulando stages 
-        //(da stage.position 1 para a stage.position 3)
-        //(da stage.position 10 pra stage.position 7)
         if (previousStage.getPosition() > targetStage.getPosition()) {
-            if (!previousStage.isDone()) {
+            if (previousStage.getType() != "done") {
                 cycleTimeRepository.delete(cycleTimePreviousStage);
+            }
+
+            if (previousStage.getPosition() - targetStage.getPosition() > 1) {
+                for (int i = targetStage.getPosition() + 1; i < previousStage.getPosition(); i++) {
+                    CycleTime cycleTime = cycleTimeRepository.findByCardAndStage(card, stageRepository.findByFlowAndPosition(flow, i));
+                    cycleTimeRepository.delete(cycleTime);
+
+                }
             }
             
             CycleTime cycleTimeTargetStage = cycleTimeRepository.findByCardAndStage(card, targetStage);                      
@@ -141,22 +146,29 @@ public class CardMoveController {
         }
 
         if (previousStage.getPosition() < targetStage.getPosition()) {
+            //implementar lógica para quando o card é movido pulando stages 
+            //(da stage.position 1 para a stage.position 3)
             cycleTimePreviousStage.setFinishedAt(LocalDateTime.now());
             cycleTimeRepository.save(cycleTimePreviousStage);
+            
+            if (targetStage.getPosition() - previousStage.getPosition() > 1) {
+                for (int i = previousStage.getPosition() + 1; i < targetStage.getPosition(); i++) {
+                    CycleTime cycleTime = cycleTimeRepository.findByCardAndStage(card, stageRepository.findByFlowAndPosition(flow, i));
+                    cycleTime.setCreatedAt(LocalDateTime.now());
+                    cycleTime.setFinishedAt(LocalDateTime.now());
+                    cycleTimeRepository.save(cycleTime);
+                } 
+            }
 
-            if (!targetStage.isDone()) {
+            if (targetStage.getType() != "done") {
                 CycleTime cycleTimeTargetStage = new CycleTime();
                 cycleTimeTargetStage.setCard(card);
                 cycleTimeTargetStage.setStage(targetStage);
                 cycleTimeTargetStage.setFlow(flow);
                 cycleTimeTargetStage.setCreatedAt(LocalDateTime.now());
                 cycleTimeRepository.save(cycleTimeTargetStage);
-            }
-            
-        }
-        
-        
-
+            }            
+        }        
         return ResponseEntity.ok(card);
     }
 }

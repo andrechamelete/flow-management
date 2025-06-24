@@ -6,7 +6,7 @@ public class StageRequest {
     private String name;
     private Integer position;
     private Integer wipLimit;
-    private boolean done;
+    private String type;
     
     StageRequest() {}
 
@@ -63,13 +63,12 @@ public class StageRequest {
         this.wipLimit = wipLimit;
     }
 
-    public boolean isDone() {
-        return done;
+    public String getType() {
+        return type;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public void setType(String type) {
+        this.type = type;
     }
-
     
 }

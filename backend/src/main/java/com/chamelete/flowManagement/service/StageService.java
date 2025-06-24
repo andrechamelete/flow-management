@@ -9,7 +9,7 @@ public interface StageService {
 
     List<Stage> getStagesByFlow(Flows flow);
 
-    Stage createStage(Flows flow, String name, int position, boolean done);
+    Stage createStage(Flows flow, String name, int position, String type);
 
     Stage createStage(Stage stage);
 
