@@ -108,7 +108,7 @@ export class DashboardComponent implements OnInit {
 
   launchGivePermission() {
     console.log("launch give permission");
-    const modalRef = this.modalService.open(CompanyPermissionComponent);
+    this.modalService.open(CompanyPermissionComponent);
   }
 
   logOut(): void {

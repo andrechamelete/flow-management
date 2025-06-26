@@ -1,8 +1,16 @@
-<div class="throughput">
+<div class="stat" [formGroup]="throughputForm">
     <label class="label">Throughput</label>
+    <span class="tooltip-icon">&nbsp;<i class="bi bi-info-circle-fill"></i></span>
+    <div class="tooltip-text">quantidade de cards finalizados por período (dia, semana mês)</div>
     <div class="visor">
-        <h2 class="info">5</h2>
-        <P class="units">cards/week</P>
-    </div>
-    
+        <h4 class="info">{{adjustedThroughput | number: '1.1-1'}}</h4>
+        <P class="units">/&nbsp;&nbsp;</P>
+        <select formControlName="time" class="form-control units">
+            <option value="day">Day</option>
+            <option value="week">Week</option>
+            <option value="month">Month</option>
+            
+        </select>
+        
+    </div>    
 </div>

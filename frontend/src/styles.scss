@@ -1,3 +1,20 @@
+@use '@angular/material' as mat;
 
+// Customize the entire app. Change :root to your selector if you want to scope the styles.
+:root {
+  @include mat.datepicker-overrides((
+    calendar-body-label-text-color: rgb(0, 0, 0),
+    calendar-container-background-color: rgba(214, 216, 232, 0.716),
+    calendar-date-text-color: black,
+    calendar-date-selected-state-text-color: rgb(255, 255, 255),
+    calendar-header-text-color: black,
+    calendar-navigation-button-icon-color: black,
+    calendar-period-button-icon-color: black,
+    calendar-period-button-text-color: black,
+    calendar-date-in-range-state-background-color: rgba(99, 162, 137, 0.648),
+    calendar-header-divider-color: white,
+    range-input-separator-color: white,
+  ));
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

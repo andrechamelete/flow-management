@@ -1,7 +1,9 @@
-<div>
-    <label>Efficiency</label>
+<div class="stat">
+    <label class="label">Efficiency</label>
+    <span class="tooltip-icon">&nbsp;<i class="bi bi-info-circle-fill"></i></span>
+    <div class="tooltip-text">porcentagem de tempo em que os cards ficaram em progress ou em fila</div>
     <div class="efficiency-bar">
-        <div class="process">30%</div>
-        <div class="queue">70%</div>
+        <div class="bar process" title="Time in progress" [style.width]="widthProcesss + 'px'">{{inProcess | number: '2.1-1'}}%</div>
+        <div class="bar queue" title="Time in queue" [style.width]="widthQueue + 'px'">{{inQueue | number: '2.1-1'}}%</div>
     </div>
 </div>

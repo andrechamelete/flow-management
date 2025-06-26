@@ -1,7 +1,9 @@
-<div>
-    <label>Queues</label>
+<div class="stat">
+    <label class="label">WiP / Queues</label>
+    <span class="tooltip-icon">&nbsp;<i class="bi bi-info-circle-fill"></i></span>
+    <div class="tooltip-text">quantidade de cards atualmente em progresso ou fila</div>
     <div class="queue-bar">
-        <div class="process">58</div>
-        <div class="queue">21</div>
+        <div class="bar process" title="Cards in progres" [style.width.%]="widthWip">{{wip}}</div>
+        <div class="bar queue" title="Cards in queue" [style.width.%]="widthQueue">{{queue}}</div>
     </div>
 </div>

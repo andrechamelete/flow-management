@@ -1,0 +1,64 @@
+.stat {
+    //background-color: rgba(222, 254, 243, 0.586);
+    color: rgb(0, 0, 0);
+    justify-items: center;
+    width: 220px;
+    //border-radius: 1px;
+    padding: 1.5px;
+    //border: solid 1px rgba(201, 201, 201, 0.452)
+    position: relative;
+    display: inline-block;
+}
+
+.bi {
+    font-size: 70%;
+    position: absolute;
+}
+
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: #fafaf2;
+  color: #000000;
+  padding: 6px;
+  border-radius: 4px;
+  position: absolute;
+  top: 60px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  font-size: small;
+}
+
+.stat:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.efficiency-bar {
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+    justify-content: center;
+    margin: 1px;
+}
+
+.bar {
+    text-align: center;
+    border: solid 1px rgba(201, 201, 201, 0.452);
+}
+
+.process {
+    background-color: aquamarine;
+}
+
+.queue {
+    background-color: rgb(238, 181, 140);
+}
+
+.label {
+    font-size: small;
+    font-weight: 500;
+}

@@ -1,6 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ClassOfService } from '../models/ClassOfService';
 import { BoardService } from './board.service';
 
 @Injectable({
