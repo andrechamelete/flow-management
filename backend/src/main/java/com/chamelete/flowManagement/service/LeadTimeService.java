@@ -6,11 +6,11 @@ import java.util.List;
 import com.chamelete.flowManagement.model.Cards;
 import com.chamelete.flowManagement.model.Flows;
 
-public interface MetricsService {
+public interface LeadTimeService {
 
     List<Cards> getCardsByDone(Flows flow);
 
-    int getLeadTime(Flows flow, LocalDateTime startDate, LocalDateTime endDate);
+    double getLeadTime(Flows flow, LocalDateTime startDate, LocalDateTime endDate);
 
     List<Cards> getCardsByDoneInRange (Flows flow, LocalDateTime startDate, LocalDateTime endDate);
 }

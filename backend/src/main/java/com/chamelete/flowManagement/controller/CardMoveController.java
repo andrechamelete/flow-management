@@ -117,7 +117,7 @@ public class CardMoveController {
             }
         }
 
-        if (targetStage.getType() == "done") {
+        if (targetStage.getType().equalsIgnoreCase("done")) {
             card.setFinishedAt(LocalDateTime.now());
         }
 
@@ -128,7 +128,7 @@ public class CardMoveController {
         CycleTime cycleTimePreviousStage = cycleTimeRepository.findByCardAndStage(card, previousStage);
         
         if (previousStage.getPosition() > targetStage.getPosition()) {
-            if (previousStage.getType() != "done") {
+            if (!previousStage.getType().equalsIgnoreCase("done")) {
                 cycleTimeRepository.delete(cycleTimePreviousStage);
             }
 
@@ -160,14 +160,18 @@ public class CardMoveController {
                 } 
             }
 
-            if (targetStage.getType() != "done") {
+            if (!targetStage.getType().equalsIgnoreCase("done")) {
                 CycleTime cycleTimeTargetStage = new CycleTime();
                 cycleTimeTargetStage.setCard(card);
                 cycleTimeTargetStage.setStage(targetStage);
                 cycleTimeTargetStage.setFlow(flow);
                 cycleTimeTargetStage.setCreatedAt(LocalDateTime.now());
                 cycleTimeRepository.save(cycleTimeTargetStage);
-            }            
+            }          
+            
+            if (targetStage.getType().equalsIgnoreCase("done")) {
+                card.setFinishedAt(LocalDateTime.now());
+            }
         }        
         return ResponseEntity.ok(card);
     }

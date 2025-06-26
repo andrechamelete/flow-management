@@ -1,5 +1,7 @@
 package com.chamelete.flowManagement.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.chamelete.flowManagement.model.Cards;
@@ -14,6 +16,8 @@ public interface CycleTimeRepository extends JpaRepository<CycleTime, Long> {
     CycleTime findByCardAndStage(Cards card, Stage stage);
 
     CycleTime findByFlowAndStage(Flows flow, Stage stage);
+
+    List<CycleTime> findByFlow(Flows flow);
 
     
 }
