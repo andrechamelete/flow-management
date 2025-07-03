@@ -1,12 +1,21 @@
-<select>
-    <option value="cfd">CFD</option>
-    <option value="aging">Aging</option>
-    <option value="histogram">Histogram</option>
-    <option value="scatterplot">Scatterplot</option>
-</select>
-<div class="charts">
-    <app-cfd></app-cfd>
-    <app-aging></app-aging>
-    <app-histogram></app-histogram>
-    <app-scatterplot></app-scatterplot>
+<div class="chart-header" [formGroup]="chartForm">
+    <select formControlName="chart" class="chart-selector">
+        <option value="cfd">CFD</option>
+        <option value="aging">Aging</option>
+        <option value="histogram">Histogram</option>
+        <option value="scatterplot">Scatterplot</option>
+    </select>
 </div>
+
+<div class="chart-body">
+    <div class="charts">
+        @switch (chartForm.value.chart) {
+            @case ('cfd') {<app-cfd></app-cfd>}
+            @case ('aging') {<app-aging></app-aging>}
+            @case ('histogram') {<app-histogram></app-histogram>}
+            @case ('scatterplot') {<app-scatterplot></app-scatterplot>}
+            @default {<app-cfd></app-cfd>}
+        }
+    </div>
+</div>
+

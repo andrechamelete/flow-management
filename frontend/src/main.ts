@@ -5,11 +5,13 @@ import { provideRouter } from '@angular/router';
 import routeConfig from './app/app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './app/interceptors/auth.interceptor';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideHttpClient(withInterceptors([authInterceptor])),
-    provideRouter(routeConfig)
+    provideRouter(routeConfig), provideCharts(withDefaultRegisterables()),
+    provideCharts(withDefaultRegisterables())
   ]
 })
   .catch((err) => console.error(err));

@@ -52,10 +52,14 @@
 
 .process {
     background-color: aquamarine;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
 
 .queue {
     background-color: rgb(238, 181, 140);
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 
 .label {
