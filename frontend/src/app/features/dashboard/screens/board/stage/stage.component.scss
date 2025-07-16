@@ -70,7 +70,10 @@ p {
     border-right: 2px solid rgb(159, 179, 194);
     border-left: 0px solid rgb(159, 179, 194);
     border-top: 0px solid rgb(159, 179, 194);
+}
 
+.launchCreateCard:hover {
+  background-color: rgba(225, 253, 253, 0.908);
 }
 
 .cdk-preview {
